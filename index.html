@@ -3,707 +3,635 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Красный Круг — гончарная мастерская · Красноярск</title>
-  <meta name="description" content="Гончарные занятия и лепка для детей и взрослых. Мастерская «Красный Круг», Красноярск, Взлётная 30. Соберите своё посещение и напишите нам в WhatsApp.">
+  <title>Красный Круг — гончарная мастерская в Красноярске · Взлётная, 30</title>
+  <meta name="description" content="Гончарная мастерская «Красный Круг», Красноярск, ул. Взлётная, 30. Гончарный круг и лепка для детей и взрослых. Соберите посещение в конструкторе и отправьте заявку в WhatsApp.">
+  <meta property="og:title" content="Красный Круг — гончарная мастерская · Красноярск">
+  <meta property="og:description" content="Из комка глины — в вещь с характером. Взлётная, 30. Дети и взрослые.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23B23A22'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%23F4EBDD' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23F4EBDD'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23B83A2A'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23F5EDE4' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23F5EDE4'/%3E%3C/svg%3E">
 </head>
 <body>
+  <a class="skip-link" href="#constructor">Перейти к конструктору посещения</a>
 
-  <!-- ═══════ NAV ═══════ -->
-  <header class="nav" id="nav" role="banner">
-    <div class="nav__inner">
-      <a href="#hero" class="nav__logo" aria-label="Красный Круг — на главную">
-        <svg class="nav__mark" viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
-          <circle cx="20" cy="20" r="18" fill="var(--brick)"/>
-          <circle cx="20" cy="20" r="11" fill="none" stroke="var(--paper)" stroke-width="1.5"/>
-          <circle cx="20" cy="20" r="4" fill="var(--paper)"/>
-        </svg>
-        <span class="nav__wordmark">Красный&nbsp;Круг</span>
+  <!-- Общие определения: зерно, градиенты глины, авторские иллюстрации -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="grainF" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0.12  0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0.5 0"/>
+      </filter>
+
+      <linearGradient id="gBrick" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#D4593A"/>
+        <stop offset="0.5" stop-color="#B23A22"/>
+        <stop offset="1" stop-color="#7E2413"/>
+      </linearGradient>
+      <linearGradient id="gPaperClay" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#F7EFDF"/>
+        <stop offset="0.55" stop-color="#E8D8BC"/>
+        <stop offset="1" stop-color="#CBB18A"/>
+      </linearGradient>
+      <linearGradient id="gInkBody" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#4C443C"/>
+        <stop offset="0.5" stop-color="#2E2822"/>
+        <stop offset="1" stop-color="#191410"/>
+      </linearGradient>
+      <linearGradient id="gGlazeBlue" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#4E7A8C"/>
+        <stop offset="1" stop-color="#2C4E5E"/>
+      </linearGradient>
+      <linearGradient id="gGlazeGreen" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#7C8F5A"/>
+        <stop offset="1" stop-color="#55663B"/>
+      </linearGradient>
+      <radialGradient id="gWheelHead" cx="0.42" cy="0.35" r="0.95">
+        <stop offset="0" stop-color="#5C534A"/>
+        <stop offset="1" stop-color="#241E19"/>
+      </radialGradient>
+
+      <!-- Кувшин на круге -->
+      <symbol id="art-pot" viewBox="0 0 400 460">
+        <ellipse cx="200" cy="424" rx="140" ry="18" fill="#1E1712" opacity="0.16"/>
+        <path d="M116 386 h168 l-12 34 h-144 z" fill="#2E2822"/>
+        <ellipse cx="200" cy="386" rx="126" ry="26" fill="url(#gWheelHead)"/>
+        <ellipse cx="200" cy="382" rx="100" ry="19" fill="#191410"/>
+        <path d="M158 376 c-10 -50 -34 -76 -34 -128 c0 -66 34 -104 76 -104 s76 38 76 104 c0 52 -24 78 -34 128 c-22 10 -62 10 -84 0 z" fill="url(#gBrick)"/>
+        <path d="M168 148 c0 -14 14 -24 32 -24 s32 10 32 24 l-6 14 h-52 z" fill="#7E2413"/>
+        <ellipse cx="200" cy="146" rx="32" ry="9" fill="#5C1A0D"/>
+        <path d="M140 236 q60 22 120 0" stroke="#7E2413" stroke-width="5" fill="none" opacity="0.55"/>
+        <path d="M136 268 q64 24 128 0" stroke="#7E2413" stroke-width="4" fill="none" opacity="0.4"/>
+        <path d="M142 300 q58 22 116 0" stroke="#7E2413" stroke-width="4" fill="none" opacity="0.3"/>
+        <path d="M148 196 c6 -26 20 -42 34 -48" stroke="#F0B490" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <rect x="0" y="0" width="400" height="460" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+
+      <!-- Кружка с ручкой -->
+      <symbol id="art-mug" viewBox="0 0 400 400">
+        <ellipse cx="192" cy="348" rx="118" ry="15" fill="#1E1712" opacity="0.15"/>
+        <path d="M266 168 c48 -4 76 22 70 58 c-6 38 -44 56 -84 44 l8 -28 c26 8 46 -4 50 -24 c4 -20 -14 -32 -42 -26 z" fill="url(#gPaperClay)"/>
+        <path d="M108 140 h168 c8 74 -6 140 -34 172 c-20 22 -80 22 -100 0 c-28 -32 -42 -98 -34 -172 z" fill="url(#gPaperClay)"/>
+        <path d="M108 140 h168 c2 20 2 40 0 58 c-26 16 -46 -8 -70 4 c-24 12 -42 -10 -66 2 c-12 6 -22 2 -32 -4 c-2 -20 -2 -40 0 -60 z" fill="url(#gGlazeBlue)"/>
+        <path d="M138 200 c0 16 -2 28 -6 38 M200 206 c0 20 -2 32 -6 42 M252 198 c0 14 -2 24 -5 32" stroke="#2C4E5E" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <ellipse cx="192" cy="140" rx="84" ry="14" fill="#22404E"/>
+        <ellipse cx="192" cy="138" rx="72" ry="10" fill="#16303C"/>
+        <rect x="0" y="0" width="400" height="400" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+
+      <!-- Миска -->
+      <symbol id="art-bowl" viewBox="0 0 400 400">
+        <ellipse cx="200" cy="332" rx="126" ry="15" fill="#1E1712" opacity="0.15"/>
+        <path d="M74 162 h252 c-4 76 -54 136 -126 136 s-122 -60 -126 -136 z" fill="url(#gInkBody)"/>
+        <ellipse cx="200" cy="162" rx="126" ry="22" fill="#14100C"/>
+        <ellipse cx="200" cy="160" rx="110" ry="17" fill="#B23A22"/>
+        <ellipse cx="200" cy="162" rx="94" ry="13" fill="#7E2413"/>
+        <path d="M94 210 q106 34 212 0" stroke="#5C534A" stroke-width="4" fill="none" opacity="0.5"/>
+        <path d="M172 298 h56 l-6 24 h-44 z" fill="#191410"/>
+        <rect x="0" y="0" width="400" height="400" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+
+      <!-- Тарелка с кольцами -->
+      <symbol id="art-plate" viewBox="0 0 400 400">
+        <ellipse cx="200" cy="350" rx="128" ry="13" fill="#1E1712" opacity="0.12"/>
+        <circle cx="200" cy="192" r="142" fill="url(#gPaperClay)"/>
+        <circle cx="200" cy="192" r="142" fill="none" stroke="#CBB18A" stroke-width="4"/>
+        <circle cx="200" cy="192" r="112" fill="none" stroke="#B23A22" stroke-width="4" opacity="0.8"/>
+        <circle cx="200" cy="192" r="86" fill="none" stroke="#B23A22" stroke-width="3" opacity="0.55"/>
+        <circle cx="200" cy="192" r="60" fill="none" stroke="#B23A22" stroke-width="3" opacity="0.35"/>
+        <circle cx="200" cy="192" r="14" fill="#B23A22"/>
+        <g stroke="#2E2822" stroke-width="4" stroke-linecap="round" opacity="0.7">
+          <path d="M200 66 v18"/><path d="M200 300 v18"/><path d="M74 192 h18"/><path d="M308 192 h18"/>
+        </g>
+        <rect x="0" y="0" width="400" height="400" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+
+      <!-- Ваза вытянутая -->
+      <symbol id="art-vase" viewBox="0 0 400 520">
+        <ellipse cx="200" cy="480" rx="112" ry="15" fill="#1E1712" opacity="0.15"/>
+        <path d="M176 96 h48 l-4 60 c30 20 52 62 52 118 c0 92 -32 158 -72 158 s-72 -66 -72 -158 c0 -56 22 -98 52 -118 z" fill="url(#gGlazeGreen)"/>
+        <path d="M172 96 h56 l-2 16 h-52 z" fill="#3E4C2A"/>
+        <ellipse cx="200" cy="96" rx="28" ry="8" fill="#2E3A1E"/>
+        <path d="M140 260 q60 22 120 0" stroke="#3E4C2A" stroke-width="5" fill="none" opacity="0.55"/>
+        <path d="M136 300 q64 24 128 0" stroke="#3E4C2A" stroke-width="4" fill="none" opacity="0.4"/>
+        <path d="M152 200 c6 -30 18 -50 32 -60" stroke="#C4D0A0" stroke-width="9" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <rect x="0" y="0" width="400" height="520" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+
+      <!-- Детская фигурка-кот -->
+      <symbol id="art-cat" viewBox="0 0 400 400">
+        <ellipse cx="200" cy="344" rx="110" ry="14" fill="#1E1712" opacity="0.14"/>
+        <path d="M136 160 l-16 -52 l48 26 z" fill="url(#gBrick)"/>
+        <path d="M264 160 l16 -52 l-48 26 z" fill="url(#gBrick)"/>
+        <path d="M120 200 c0 -52 36 -84 80 -84 s80 32 80 84 c0 26 -10 46 -26 60 c14 20 20 44 16 66 c-38 16 -102 16 -140 0 c-4 -22 2 -46 16 -66 c-16 -14 -26 -34 -26 -60 z" fill="url(#gBrick)"/>
+        <circle cx="172" cy="196" r="9" fill="#1E1712"/>
+        <circle cx="228" cy="196" r="9" fill="#1E1712"/>
+        <path d="M192 218 q8 8 16 0" stroke="#1E1712" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <g stroke="#7E2413" stroke-width="4" stroke-linecap="round">
+          <path d="M140 214 h-30"/><path d="M142 228 l-28 8"/>
+          <path d="M260 214 h30"/><path d="M258 228 l28 8"/>
+        </g>
+        <path d="M262 316 c34 4 52 -12 48 -38" stroke="#B23A22" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <rect x="0" y="0" width="400" height="400" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+
+      <!-- Стопка чаш -->
+      <symbol id="art-stack" viewBox="0 0 400 400">
+        <ellipse cx="200" cy="346" rx="118" ry="14" fill="#1E1712" opacity="0.14"/>
+        <path d="M102 268 h196 c-4 42 -42 72 -98 72 s-94 -30 -98 -72 z" fill="url(#gInkBody)"/>
+        <ellipse cx="200" cy="268" rx="98" ry="16" fill="#14100C"/>
+        <path d="M110 206 h180 c-4 40 -38 68 -90 68 s-86 -28 -90 -68 z" fill="url(#gBrick)"/>
+        <ellipse cx="200" cy="206" rx="90" ry="15" fill="#7E2413"/>
+        <path d="M118 146 h164 c-4 38 -34 64 -82 64 s-78 -26 -82 -64 z" fill="url(#gPaperClay)"/>
+        <ellipse cx="200" cy="146" rx="82" ry="14" fill="#CBB18A"/>
+        <ellipse cx="200" cy="145" rx="68" ry="10" fill="#4E7A8C"/>
+        <rect x="0" y="0" width="400" height="400" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+
+      <!-- Ладони над глиной -->
+      <symbol id="art-hands" viewBox="0 0 400 400">
+        <ellipse cx="200" cy="338" rx="138" ry="17" fill="#1E1712" opacity="0.12"/>
+        <ellipse cx="200" cy="310" rx="116" ry="25" fill="#2E2822"/>
+        <path d="M158 302 c-8 -54 10 -94 42 -94 s50 40 42 94 c-16 12 -68 12 -84 0 z" fill="url(#gBrick)"/>
+        <ellipse cx="200" cy="210" rx="42" ry="11" fill="#7E2413"/>
+        <path d="M94 252 c-18 -36 -6 -72 26 -86 c14 -6 26 2 24 16 c-2 12 -12 16 -18 26 c-8 14 -6 32 4 46 z" fill="#E5C6A0"/>
+        <path d="M306 252 c18 -36 6 -72 -26 -86 c-14 -6 -26 2 -24 16 c2 12 12 16 18 26 c8 14 6 32 -4 46 z" fill="#E5C6A0"/>
+        <path d="M116 264 c14 18 34 28 54 30 M284 264 c-14 18 -34 28 -54 30" stroke="#D2AC80" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <path d="M168 254 q32 12 64 0" stroke="#7E2413" stroke-width="4" fill="none" opacity="0.5"/>
+        <rect x="0" y="0" width="400" height="400" filter="url(#grainF)" opacity="0.15"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Красный Круг — наверх">
+        <span class="brand-disc" aria-hidden="true"><i></i></span>
+        <span class="brand-text">Красный&nbsp;Круг<small>гончарная мастерская · Красноярск</small></span>
       </a>
-      <button class="nav__burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="nav__links" id="nav-links" aria-label="Основная навигация">
-        <a href="#formats" class="nav__link">Форматы</a>
-        <a href="#constructor" class="nav__link">Записаться</a>
-        <a href="#gallery" class="nav__link">Галерея</a>
-        <a href="#faq" class="nav__link">Вопросы</a>
-        <a href="#route" class="nav__link">Маршрут</a>
-        <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer" class="nav__cta">WhatsApp</a>
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <a href="#formats">Форматы</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#faq">Начинающему</a>
+        <a href="#route">Маршрут</a>
       </nav>
+      <div class="header-actions">
+        <a class="btn btn-primary btn-sm header-cta" href="#constructor">Собрать посещение</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
-    <div class="nav__progress" id="scroll-progress" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"><i id="scroll-progress-bar"></i></div>
   </header>
 
   <main>
-
-    <!-- ═══════ HERO ═══════ -->
-    <section class="hero" id="hero" aria-labelledby="hero-title">
-      <canvas class="hero__canvas" id="wheel-canvas" aria-hidden="true"></canvas>
-      <div class="hero__grain" aria-hidden="true"></div>
-      <div class="hero__mesh" aria-hidden="true"></div>
-
-      <div class="hero__layout">
-        <div class="hero__content">
-          <p class="hero__eyebrow reveal" data-delay="0">
-            <span class="hero__eyebrow-dot" aria-hidden="true"></span>
-            Гончарная мастерская · Красноярск
-          </p>
-          <h1 class="hero__title reveal" data-delay="1" id="hero-title">
-            <span class="hero__line">Из комка глины&nbsp;—</span>
-            <span class="hero__line hero__line--accent"><em>в вещь с характером</em></span>
-          </h1>
-          <p class="hero__sub reveal" data-delay="2">Лепка и гончарный круг для детей и взрослых.<br>Приходите с любопытством — уйдёте с историей.</p>
-          <div class="hero__actions reveal" data-delay="3">
-            <a href="#constructor" class="btn btn--primary btn--glow">
-              Собрать посещение
-              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a href="#formats" class="btn btn--ghost">Чем отличаются форматы?</a>
+    <!-- ПЕРВЫЙ ЭКРАН -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-orbit hero-orbit-1"></div>
+        <div class="hero-orbit hero-orbit-2"></div>
+        <div class="hero-orbit hero-orbit-3"></div>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Красноярск · Взлётная, 30 · дети и взрослые</p>
+          <h1 id="hero-title" class="reveal">Из комка глины —<br>в вещь <em>с&nbsp;характером</em></h1>
+          <p class="hero-lead reveal">«Красный Круг» — мастерская, где глина встречается с ладонями. Гончарный круг и лепка для тех, кто никогда не пробовал, и для тех, кто уже знает этот гул под руками.</p>
+          <div class="hero-actions reveal">
+            <a class="btn btn-primary" href="#constructor">Собрать посещение<span class="btn-arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#formats">Лепка или круг?</a>
           </div>
+          <ul class="hero-facts reveal" aria-label="Коротко о мастерской">
+            <li><strong>Два формата</strong><span>лепка и гончарный круг</span></li>
+            <li><strong>Все возрасты</strong><span>занятия детям и взрослым</span></li>
+            <li><strong>Без опыта</strong><span>мастер ведёт за руку</span></li>
+          </ul>
         </div>
 
-        <div class="hero__aside reveal" data-delay="2" aria-hidden="true">
-          <div class="hero__stamp">
-            <svg viewBox="0 0 160 160" class="hero__stamp-svg">
-              <defs>
-                <path id="stamp-circle" d="M80,80 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/>
-              </defs>
-              <circle cx="80" cy="80" r="76" fill="none" stroke="var(--brick)" stroke-width="1" opacity="0.3"/>
-              <circle cx="80" cy="80" r="68" fill="none" stroke="var(--brick)" stroke-width="0.5" opacity="0.2"/>
-              <text font-size="9.5" fill="var(--brick)" font-family="var(--font-sans)" font-weight="600" letter-spacing="3.5" opacity="0.6">
-                <textPath href="#stamp-circle">КРАСНЫЙ КРУГ · КРАСНОЯРСК · ВЗЛЁТНАЯ 30 · </textPath>
-              </text>
-              <circle cx="80" cy="80" r="28" fill="var(--brick)" opacity="0.08"/>
-              <circle cx="80" cy="80" r="18" fill="none" stroke="var(--brick)" stroke-width="1.5" opacity="0.25"/>
-              <circle cx="80" cy="80" r="6" fill="var(--brick)" opacity="0.2"/>
+        <div class="hero-wheel reveal">
+          <div class="wheel-stage" id="wheel-stage" role="img" aria-label="Интерактивная иллюстрация: гончарный круг с кувшином. Наведите курсор — круг ускоряется.">
+            <svg class="wheel-rings" viewBox="0 0 560 560" aria-hidden="true">
+              <g class="ring-spin-slow">
+                <circle cx="280" cy="280" r="264" fill="none" stroke="#B23A22" stroke-width="1.5" stroke-dasharray="3 14" opacity="0.55"/>
+              </g>
+              <g class="ring-spin-rev">
+                <circle cx="280" cy="280" r="234" fill="none" stroke="#2E2822" stroke-width="1" stroke-dasharray="1 9" opacity="0.4"/>
+              </g>
+              <defs><path id="heroTextCircle" d="M280,280 m-206,0 a206,206 0 1,1 412,0 a206,206 0 1,1 -412,0"/></defs>
+              <g class="ring-spin-text">
+                <text class="wheel-caption-ring"><textPath href="#heroTextCircle">красный круг · гончарная мастерская · взлётная 30 · красный круг · гончарная мастерская ·</textPath></text>
+              </g>
             </svg>
+            <div class="wheel-disc" aria-hidden="true">
+              <div class="wheel-disc-face">
+                <i class="disc-ring disc-ring-1"></i>
+                <i class="disc-ring disc-ring-2"></i>
+                <i class="disc-ring disc-ring-3"></i>
+                <i class="disc-dot"></i>
+              </div>
+            </div>
+            <svg class="wheel-pot" viewBox="0 0 400 460" aria-hidden="true"><use href="#art-pot"/></svg>
+            <p class="wheel-hint" aria-hidden="true">наведите — круг оживёт</p>
           </div>
+          <figure class="hero-chip hero-chip-a">
+            <svg aria-hidden="true"><use href="#art-mug"/></svg>
+            <figcaption>иллюстрация</figcaption>
+          </figure>
+          <figure class="hero-chip hero-chip-b">
+            <svg aria-hidden="true"><use href="#art-cat"/></svg>
+            <figcaption>иллюстрация</figcaption>
+          </figure>
         </div>
       </div>
 
-      <div class="hero__scroll-hint reveal" data-delay="4" aria-hidden="true">
-        <div class="hero__scroll-line"></div>
-        <span>Листайте</span>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>круг</span><b>●</b><span>глина</span><b>●</b><span>ладони</span><b>●</b><span>глазурь</span><b>●</b><span>характер</span><b>●</b>
+          <span>круг</span><b>●</b><span>глина</span><b>●</b><span>ладони</span><b>●</b><span>глазурь</span><b>●</b><span>характер</span><b>●</b>
+        </div>
       </div>
     </section>
 
-    <!-- ═══════ MARQUEE ═══════ -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span class="marquee__item">Лепка</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Гончарный круг</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Для детей и взрослых</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Красноярск</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Взлётная, 30</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Лепка</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Гончарный круг</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Для детей и взрослых</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Красноярск</span>
-        <span class="marquee__dot">●</span>
-        <span class="marquee__item">Взлётная, 30</span>
-        <span class="marquee__dot">●</span>
-      </div>
-    </div>
+    <!-- КОНСТРУКТОР ПОСЕЩЕНИЯ -->
+    <section class="constructor section" id="constructor" aria-labelledby="constructor-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Конструктор посещения</p>
+          <h2 id="constructor-title">Соберите свой визит —<br>как собирают форму на круге</h2>
+          <p class="section-sub">Пять шагов складываются в готовую заявку. Она откроется в WhatsApp заполненной — вы прочитаете её и отправите сами. Дата здесь — пожелание: свободное время подтверждает мастер, а не сайт.</p>
+        </div>
 
-    <!-- ═══════ FORMATS ═══════ -->
+        <div class="constructor-grid">
+          <form class="c-form reveal" id="visit-form" novalidate>
+            <fieldset class="c-step" data-step="age">
+              <legend><span class="c-num" aria-hidden="true">1</span> Кто садится за глину?</legend>
+              <div class="chip-row" role="radiogroup" aria-label="Возрастная группа">
+                <label class="chip"><input type="radio" name="age" value="adults" checked><span>Взрослые</span></label>
+                <label class="chip"><input type="radio" name="age" value="kids"><span>Дети</span></label>
+                <label class="chip"><input type="radio" name="age" value="family"><span>Вместе, семьёй</span></label>
+              </div>
+              <div class="c-conditional" id="kids-age-wrap" hidden>
+                <label class="field-label" for="kids-age">Возраст детей <span class="opt">не обязательно, но поможет мастеру</span></label>
+                <input class="text-input" type="text" id="kids-age" name="kidsAge" inputmode="numeric" maxlength="12" placeholder="Например: 7 и 10" aria-describedby="kids-age-error kids-age-note">
+                <p class="field-note" id="kids-age-note">Можно перечислить через запятую. Возраст от 3 до 17 лет.</p>
+                <p class="field-error" id="kids-age-error" role="alert" hidden>Похоже, в возрасте опечатка: укажите числа от 3 до 17 (например, «7, 10») или очистите поле.</p>
+              </div>
+            </fieldset>
+
+            <fieldset class="c-step" data-step="people">
+              <legend><span class="c-num" aria-hidden="true">2</span> Сколько человек?</legend>
+              <div class="stepper">
+                <button type="button" class="stepper-btn" id="people-minus" aria-label="Убрать одного участника">−</button>
+                <output class="stepper-value" id="people-value" aria-live="polite" aria-label="Количество участников">2</output>
+                <button type="button" class="stepper-btn" id="people-plus" aria-label="Добавить участника">+</button>
+                <span class="stepper-hint" id="people-hint">пара за одним столом</span>
+              </div>
+              <input type="hidden" name="people" id="people-input" value="2">
+            </fieldset>
+
+            <fieldset class="c-step" data-step="format">
+              <legend><span class="c-num" aria-hidden="true">3</span> Что выбираете?</legend>
+              <div class="format-duo" role="radiogroup" aria-label="Формат занятия">
+                <label class="format-tile">
+                  <input type="radio" name="format" value="hand" checked>
+                  <span class="format-tile-body">
+                    <svg class="format-art" aria-hidden="true"><use href="#art-hands"/></svg>
+                    <span class="format-tile-text">
+                      <strong>Лепка руками</strong>
+                      <small>Жгуты, пластины, оттиски. Свой темп, любые формы — от кружки до кота.</small>
+                    </span>
+                    <span class="format-tile-mark" aria-hidden="true"></span>
+                  </span>
+                </label>
+                <label class="format-tile">
+                  <input type="radio" name="format" value="wheel">
+                  <span class="format-tile-body">
+                    <svg class="format-art" aria-hidden="true"><use href="#art-pot"/></svg>
+                    <span class="format-tile-text">
+                      <strong>Гончарный круг</strong>
+                      <small>Центровка, подъём стенок, гул круга. Мастер страхует каждую стадию.</small>
+                    </span>
+                    <span class="format-tile-mark" aria-hidden="true"></span>
+                  </span>
+                </label>
+                <label class="format-tile format-tile-wide">
+                  <input type="radio" name="format" value="both">
+                  <span class="format-tile-body">
+                    <span class="format-tile-text">
+                      <strong>Хочу попробовать оба / пока не решил</strong>
+                      <small>Мастер предложит сочетание или поможет выбрать в переписке.</small>
+                    </span>
+                    <span class="format-tile-mark" aria-hidden="true"></span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="c-step" data-step="date">
+              <legend><span class="c-num" aria-hidden="true">4</span> Когда вам удобно?</legend>
+              <div class="date-row">
+                <div class="date-field">
+                  <label class="field-label" for="wish-date">Желаемая дата</label>
+                  <input class="text-input" type="date" id="wish-date" name="date" aria-describedby="date-error date-note">
+                </div>
+                <label class="check-line">
+                  <input type="checkbox" id="date-flex" name="flexible">
+                  <span>День гибкий — подстроюсь под мастерскую</span>
+                </label>
+              </div>
+              <p class="field-note" id="date-note">Это пожелание, а не бронь: сайт не показывает расписание. Свободное время мастер подтвердит ответным сообщением.</p>
+              <p class="field-error" id="date-error" role="alert" hidden>Эта дата уже прошла. Выберите сегодня или будущий день.</p>
+            </fieldset>
+
+            <fieldset class="c-step c-step-last" data-step="comment">
+              <legend><span class="c-num" aria-hidden="true">5</span> Комментарий мастеру <span class="opt">по желанию</span></legend>
+              <label class="visually-hidden" for="comment">Комментарий к заявке</label>
+              <textarea class="text-input text-area" id="comment" name="comment" rows="3" maxlength="300" placeholder="Повод, пожелания, вопросы — всё, что важно знать заранее" aria-describedby="comment-count"></textarea>
+              <p class="char-count" id="comment-count" aria-live="polite">0 / 300</p>
+            </fieldset>
+          </form>
+
+          <aside class="c-summary reveal" aria-labelledby="summary-title">
+            <div class="summary-card" id="summary-card">
+              <div class="summary-disc" aria-hidden="true"><i></i></div>
+              <p class="summary-kicker">Итог конструктора</p>
+              <h3 id="summary-title">Ваше посещение</h3>
+              <dl class="summary-list" aria-live="polite">
+                <div><dt>Группа</dt><dd id="sum-age">Взрослые</dd></div>
+                <div><dt>Человек</dt><dd id="sum-people">2</dd></div>
+                <div><dt>Формат</dt><dd id="sum-format">Лепка руками</dd></div>
+                <div><dt>Дата</dt><dd id="sum-date">Не выбрана — уточним в переписке</dd></div>
+                <div id="sum-comment-row" hidden><dt>Комментарий</dt><dd id="sum-comment"></dd></div>
+              </dl>
+              <div class="summary-preview">
+                <p class="summary-preview-label">Текст заявки</p>
+                <p class="summary-preview-text" id="message-preview"></p>
+              </div>
+              <button class="btn btn-primary btn-block" type="button" id="wa-submit">
+                <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.3z"/></svg>
+                Открыть заявку в WhatsApp
+              </button>
+              <button class="btn btn-outline-light btn-block btn-sm" type="button" id="copy-request">Скопировать текст заявки</button>
+              <p class="summary-note">Ничего не уходит автоматически: сообщение отправляется только вашим нажатием в WhatsApp.</p>
+              <p class="summary-alt">Удобнее ВКонтакте? Пишите <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener">в сообщество мастерской</a>.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЛЕПКА VS КРУГ -->
     <section class="formats section" id="formats" aria-labelledby="formats-title">
       <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number" aria-hidden="true">01</span>
-          <h2 class="section__title" id="formats-title">Два пути к&nbsp;глине</h2>
-          <p class="section__lead">Оба формата подходят новичкам. Разница — в ощущениях и результате.</p>
+        <div class="section-head section-head-left reveal">
+          <p class="eyebrow">Два способа подружиться с глиной</p>
+          <h2 id="formats-title">Лепка и круг —<br>разные разговоры с материалом</h2>
         </div>
 
-        <div class="formats__split">
-          <!-- Лепка -->
-          <article class="format-panel format-panel--sculpt reveal" aria-labelledby="fmt-sculpt">
-            <div class="format-panel__visual" aria-hidden="true">
-              <svg viewBox="0 0 400 320" class="format-panel__art">
-                <defs>
-                  <radialGradient id="clay-glow" cx="50%" cy="60%" r="50%">
-                    <stop offset="0%" stop-color="var(--terracotta)" stop-opacity="0.2"/>
-                    <stop offset="100%" stop-color="var(--terracotta)" stop-opacity="0"/>
-                  </radialGradient>
-                </defs>
-                <rect width="400" height="320" fill="url(#clay-glow)"/>
-                <ellipse cx="200" cy="280" rx="130" ry="18" fill="var(--clay)" opacity="0.12"/>
-                <!-- sculptural vessel -->
-                <path d="M130 270 Q115 200 135 140 Q155 90 200 80 Q245 90 265 140 Q285 200 270 270 Z" fill="var(--clay)" opacity="0.5"/>
-                <path d="M145 260 Q135 200 150 150 Q168 105 200 97 Q232 105 250 150 Q265 200 255 260 Z" fill="var(--terracotta)" opacity="0.4"/>
-                <ellipse cx="200" cy="95" rx="38" ry="11" fill="var(--clay-dark)" opacity="0.25"/>
-                <ellipse cx="200" cy="95" rx="28" ry="7" fill="var(--paper)" opacity="0.2"/>
-                <!-- texture lines -->
-                <path d="M160 150 Q180 143 200 147 Q220 143 240 150" fill="none" stroke="var(--ink)" stroke-width="0.7" opacity="0.12"/>
-                <path d="M155 180 Q178 172 200 176 Q222 172 245 180" fill="none" stroke="var(--ink)" stroke-width="0.7" opacity="0.1"/>
-                <path d="M152 210 Q177 202 200 206 Q223 202 248 210" fill="none" stroke="var(--ink)" stroke-width="0.7" opacity="0.08"/>
-                <!-- hands -->
-                <path d="M75 200 Q90 185 110 192 Q118 200 115 215" fill="none" stroke="var(--brick)" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
-                <path d="M325 200 Q310 185 290 192 Q282 200 285 215" fill="none" stroke="var(--brick)" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
-                <!-- fingerprint dots -->
-                <circle cx="175" cy="165" r="2" fill="var(--brick)" opacity="0.08"/>
-                <circle cx="210" cy="190" r="1.5" fill="var(--brick)" opacity="0.06"/>
-                <circle cx="190" cy="220" r="2.5" fill="var(--brick)" opacity="0.07"/>
-              </svg>
-            </div>
-            <div class="format-panel__body">
-              <div class="format-panel__badge">
-                <span class="format-panel__tag">Руками</span>
-                <span class="format-panel__age">от 4 лет</span>
-              </div>
-              <h3 class="format-panel__name" id="fmt-sculpt">Лепка</h3>
-              <p class="format-panel__desc">Вы работаете с глиной напрямую — мнёте, вытягиваете, соединяете. Чашка нестандартной формы, фигурка, тарелка с отпечатком листа. Медитативно и свободно.</p>
-              <ul class="format-panel__list">
-                <li><span class="format-panel__bullet" aria-hidden="true"></span>Не требует координации с механизмом</li>
-                <li><span class="format-panel__bullet" aria-hidden="true"></span>Форма полностью в ваших руках</li>
-                <li><span class="format-panel__bullet" aria-hidden="true"></span>Можно работать компанией за одним столом</li>
-              </ul>
-              <a href="#constructor" class="format-panel__cta" data-format="Лепка">Выбрать лепку →</a>
-            </div>
+        <div class="versus">
+          <article class="vs-panel vs-hand reveal">
+            <header class="vs-head">
+              <span class="vs-glyph" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><path d="M14 44 c-6 -12 -2 -26 10 -31 c5 -2 9 1 8 6 c-1 4 -4 5 -6 9 c-3 5 -2 11 2 16 z M50 44 c6 -12 2 -26 -10 -31 c-5 -2 -9 1 -8 6 c1 4 4 5 6 9 c3 5 2 11 -2 16 z" fill="currentColor"/><ellipse cx="32" cy="48" rx="16" ry="6" fill="currentColor" opacity="0.5"/></svg>
+              </span>
+              <h3>Лепка руками</h3>
+              <p class="vs-tagline">медленно, свободно, в своём темпе</p>
+            </header>
+            <ul class="vs-points">
+              <li><strong>Как рождается форма.</strong> Из жгутов, пластов и шариков — вы строите вещь слой за слоем, как маленькую архитектуру.</li>
+              <li><strong>Что получается.</strong> Кружки с налепами, тарелки с оттисками листьев, фигурки, подсвечники — всё, что придумается.</li>
+              <li><strong>Кому особенно.</strong> Детям, компаниям и тем, кто хочет свободы: неправильных форм здесь не бывает.</li>
+              <li><strong>Темп.</strong> Ваш собственный. Можно замедлиться, отвлечься на разговор и вернуться — глина подождёт.</li>
+            </ul>
+            <svg class="vs-art" aria-hidden="true"><use href="#art-cat"/></svg>
           </article>
 
-          <!-- Divider -->
-          <div class="formats__divider reveal" aria-hidden="true">
-            <div class="formats__divider-line"></div>
-            <span class="formats__divider-or">или</span>
-            <div class="formats__divider-line"></div>
+          <div class="vs-divider reveal" aria-hidden="true">
+            <span class="vs-or">или</span>
           </div>
 
-          <!-- Гончарный круг -->
-          <article class="format-panel format-panel--wheel reveal" aria-labelledby="fmt-wheel">
-            <div class="format-panel__visual" aria-hidden="true">
-              <svg viewBox="0 0 400 320" class="format-panel__art">
-                <defs>
-                  <radialGradient id="wheel-glow" cx="50%" cy="65%" r="45%">
-                    <stop offset="0%" stop-color="var(--brick)" stop-opacity="0.12"/>
-                    <stop offset="100%" stop-color="var(--brick)" stop-opacity="0"/>
-                  </radialGradient>
-                </defs>
-                <rect width="400" height="320" fill="url(#wheel-glow)"/>
-                <!-- wheel base -->
-                <ellipse cx="200" cy="275" rx="140" ry="22" fill="var(--ink)" opacity="0.06"/>
-                <ellipse cx="200" cy="268" rx="120" ry="17" fill="var(--brick)" opacity="0.1"/>
-                <ellipse cx="200" cy="264" rx="100" ry="13" fill="var(--brick)" opacity="0.07"/>
-                <!-- spinning rings -->
-                <ellipse cx="200" cy="264" rx="85" ry="10" fill="none" stroke="var(--brick)" stroke-width="0.7" opacity="0.18" stroke-dasharray="5 8" class="spin-ring"/>
-                <ellipse cx="200" cy="264" rx="65" ry="8" fill="none" stroke="var(--brick)" stroke-width="0.5" opacity="0.14" stroke-dasharray="3 6" class="spin-ring spin-ring--reverse"/>
-                <!-- pot -->
-                <path d="M155 260 Q148 200 158 155 Q170 115 200 108 Q230 115 242 155 Q252 200 245 260 Z" fill="var(--terracotta)" opacity="0.5"/>
-                <path d="M165 255 Q160 205 168 165 Q178 130 200 124 Q222 130 232 165 Q240 205 235 255 Z" fill="var(--clay)" opacity="0.3"/>
-                <ellipse cx="200" cy="108" rx="30" ry="9" fill="var(--clay-dark)" opacity="0.3"/>
-                <ellipse cx="200" cy="108" rx="22" ry="6" fill="var(--paper)" opacity="0.25"/>
-                <!-- motion arcs -->
-                <path d="M60 250 Q52 235 60 220" fill="none" stroke="var(--brick)" stroke-width="1.2" opacity="0.15" stroke-linecap="round"/>
-                <path d="M340 250 Q348 235 340 220" fill="none" stroke="var(--brick)" stroke-width="1.2" opacity="0.15" stroke-linecap="round"/>
-                <!-- water drops -->
-                <circle cx="145" cy="240" r="2" fill="var(--info)" opacity="0.12"/>
-                <circle cx="260" cy="235" r="1.5" fill="var(--info)" opacity="0.1"/>
-              </svg>
-            </div>
-            <div class="format-panel__body">
-              <div class="format-panel__badge">
-                <span class="format-panel__tag">На круге</span>
-                <span class="format-panel__age">от 8 лет</span>
-              </div>
-              <h3 class="format-panel__name" id="fmt-wheel">Гончарное занятие</h3>
-              <p class="format-panel__desc">Глина вращается, а вы центрируете её и поднимаете стенки. Когда комок превращается в ровную чашку — это ни с чем не сравнить. Мастер рядом на каждом этапе.</p>
-              <ul class="format-panel__list">
-                <li><span class="format-panel__bullet" aria-hidden="true"></span>Индивидуальная работа за кругом</li>
-                <li><span class="format-panel__bullet" aria-hidden="true"></span>Симметричные формы: чашки, вазы, пиалы</li>
-                <li><span class="format-panel__bullet" aria-hidden="true"></span>Особое тактильное впечатление</li>
-              </ul>
-              <a href="#constructor" class="format-panel__cta" data-format="Гончарный круг">Выбрать круг →</a>
-            </div>
+          <article class="vs-panel vs-wheel reveal">
+            <header class="vs-head">
+              <span class="vs-glyph" aria-hidden="true">
+                <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="32" r="15" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"/><circle cx="32" cy="32" r="5" fill="currentColor"/></svg>
+              </span>
+              <h3>Гончарный круг</h3>
+              <p class="vs-tagline">ритм, центровка, диалог с вращением</p>
+            </header>
+            <ul class="vs-points">
+              <li><strong>Как рождается форма.</strong> Комок центрируется на вращающемся круге, ладони поднимают стенки — симметрия появляется прямо под руками.</li>
+              <li><strong>Что получается.</strong> Стаканы, пиалы, вазы — круглая посуда с живыми, чуть дышащими стенками.</li>
+              <li><strong>Кому особенно.</strong> Тем, кто ищет концентрацию и то самое ощущение «выключенной головы». Новичков мастер ведёт пошагово.</li>
+              <li><strong>Темп.</strong> Задаёт круг. Первые попытки могут сминаться — это нормальная часть обучения, а не провал.</li>
+            </ul>
+            <svg class="vs-art" aria-hidden="true"><use href="#art-pot"/></svg>
           </article>
         </div>
 
-        <div class="formats__note reveal">
-          <div class="formats__note-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--brick)" stroke-width="1.2"/><path d="M10 6v5m0 3v.01" stroke="var(--brick)" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <p>Не уверены, что выбрать? Напишите нам — поможем определиться, расскажем подробнее.</p>
+        <div class="vs-verdict reveal">
+          <p><strong>Не можете выбрать?</strong> Это нормально и даже правильно. Отметьте в конструкторе «хочу попробовать оба» — мастер расскажет, что подойдёт вашей компании, и предложит сочетание.</p>
+          <a class="btn btn-ghost" href="#constructor">К конструктору<span class="btn-arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ═══════ CONSTRUCTOR ═══════ -->
-    <section class="constructor section" id="constructor" aria-labelledby="constructor-title">
-      <div class="constructor__bg" aria-hidden="true"></div>
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number" aria-hidden="true">02</span>
-          <h2 class="section__title" id="constructor-title">Соберите своё посещение</h2>
-          <p class="section__lead">Выберите параметры — мы подготовим сообщение для WhatsApp. Это заявка, не бронирование: дату и время подтвердим в переписке.</p>
-        </div>
-
-        <form class="builder" id="builder-form" novalidate aria-label="Конструктор посещения">
-          <!-- Progress -->
-          <div class="builder__progress reveal" aria-label="Прогресс заполнения">
-            <div class="builder__progress-track">
-              <div class="builder__progress-fill" id="form-progress"></div>
-            </div>
-            <div class="builder__progress-steps">
-              <span class="builder__step" data-step="age">Кто</span>
-              <span class="builder__step" data-step="people">Сколько</span>
-              <span class="builder__step" data-step="format">Формат</span>
-              <span class="builder__step" data-step="date">Дата</span>
-            </div>
-          </div>
-
-          <div class="builder__layout">
-            <div class="builder__fields">
-              <!-- Возраст -->
-              <fieldset class="builder__field reveal">
-                <legend class="builder__label">
-                  <span class="builder__label-num" aria-hidden="true">1</span>
-                  Кто придёт?
-                </legend>
-                <div class="builder__chips" role="radiogroup" aria-label="Возрастная группа">
-                  <label class="chip">
-                    <input type="radio" name="age" value="Взрослые" required>
-                    <span class="chip__face">Взрослые</span>
-                  </label>
-                  <label class="chip">
-                    <input type="radio" name="age" value="Дети (4–7 лет)">
-                    <span class="chip__face">Дети 4–7</span>
-                  </label>
-                  <label class="chip">
-                    <input type="radio" name="age" value="Дети (8–14 лет)">
-                    <span class="chip__face">Дети 8–14</span>
-                  </label>
-                  <label class="chip">
-                    <input type="radio" name="age" value="Смешанная группа (взрослые + дети)">
-                    <span class="chip__face">Взрослые + дети</span>
-                  </label>
-                </div>
-                <p class="builder__error" id="err-age" role="alert" aria-live="polite"></p>
-              </fieldset>
-
-              <!-- Количество -->
-              <div class="builder__field reveal">
-                <label class="builder__label" for="people-count">
-                  <span class="builder__label-num" aria-hidden="true">2</span>
-                  Сколько человек?
-                </label>
-                <div class="stepper">
-                  <button type="button" class="stepper__btn" id="people-minus" aria-label="Уменьшить количество">−</button>
-                  <input type="number" class="stepper__value" id="people-count" name="people" min="1" max="20" value="2" aria-label="Количество человек" required>
-                  <button type="button" class="stepper__btn" id="people-plus" aria-label="Увеличить количество">+</button>
-                </div>
-                <p class="builder__hint">От 1 до 20 человек</p>
-                <p class="builder__error" id="err-people" role="alert" aria-live="polite"></p>
-              </div>
-
-              <!-- Формат -->
-              <fieldset class="builder__field reveal">
-                <legend class="builder__label">
-                  <span class="builder__label-num" aria-hidden="true">3</span>
-                  Что хотите попробовать?
-                </legend>
-                <div class="builder__chips" role="radiogroup" aria-label="Формат занятия">
-                  <label class="chip chip--wide">
-                    <input type="radio" name="format" value="Лепка" required>
-                    <span class="chip__face">
-                      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 16Q5 10 7 7Q9 4 10 4Q11 4 13 7Q15 10 14 16Z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
-                      Лепка
-                    </span>
-                  </label>
-                  <label class="chip chip--wide">
-                    <input type="radio" name="format" value="Гончарный круг">
-                    <span class="chip__face">
-                      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="13" r="6" fill="none" stroke="currentColor" stroke-width="1.2"/><ellipse cx="10" cy="13" rx="4" ry="1.5" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M8 12Q8 8 10 6Q12 8 12 12" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
-                      Гончарный круг
-                    </span>
-                  </label>
-                  <label class="chip chip--wide">
-                    <input type="radio" name="format" value="Пока не решил(а) — нужна консультация">
-                    <span class="chip__face">
-                      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 8Q8 6 10 6Q12 6 12 8Q12 10 10 10.5V12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="10" cy="14.5" r="0.8" fill="currentColor"/></svg>
-                      Посоветуйте
-                    </span>
-                  </label>
-                </div>
-                <p class="builder__error" id="err-format" role="alert" aria-live="polite"></p>
-              </fieldset>
-
-              <!-- Дата -->
-              <div class="builder__field reveal">
-                <label class="builder__label" for="visit-date">
-                  <span class="builder__label-num" aria-hidden="true">4</span>
-                  Желаемая дата
-                </label>
-                <input type="date" class="builder__input" id="visit-date" name="date" required aria-describedby="date-hint">
-                <p class="builder__hint" id="date-hint">Мы подтвердим доступность в переписке</p>
-                <p class="builder__error" id="err-date" role="alert" aria-live="polite"></p>
-              </div>
-
-              <!-- Комментарий -->
-              <div class="builder__field builder__field--full reveal">
-                <label class="builder__label" for="visit-comment">
-                  <span class="builder__label-num builder__label-num--opt" aria-hidden="true">+</span>
-                  Комментарий <span class="builder__optional">(необязательно)</span>
-                </label>
-                <textarea class="builder__textarea" id="visit-comment" name="comment" rows="3" maxlength="500" placeholder="Повод, пожелания, вопросы — всё, что хотите рассказать заранее"></textarea>
-                <p class="builder__charcount"><span id="char-current">0</span>/500</p>
-              </div>
-            </div>
-
-            <!-- Sticky Summary -->
-            <aside class="builder__sidebar reveal" aria-label="Резюме заявки">
-              <div class="builder__summary" id="summary" aria-live="polite">
-                <div class="builder__summary-card">
-                  <div class="builder__summary-header">
-                    <svg width="24" height="24" viewBox="0 0 40 40" aria-hidden="true">
-                      <circle cx="20" cy="20" r="18" fill="var(--brick)" opacity="0.12"/>
-                      <circle cx="20" cy="20" r="11" fill="none" stroke="var(--brick)" stroke-width="1.2"/>
-                      <circle cx="20" cy="20" r="4" fill="var(--brick)"/>
-                    </svg>
-                    <h3 class="builder__summary-title">Ваша заявка</h3>
-                  </div>
-                  <dl class="builder__summary-list" id="summary-list">
-                    <div class="builder__summary-row"><dt>Кто</dt><dd id="sum-age">—</dd></div>
-                    <div class="builder__summary-row"><dt>Человек</dt><dd id="sum-people">2 человека</dd></div>
-                    <div class="builder__summary-row"><dt>Формат</dt><dd id="sum-format">—</dd></div>
-                    <div class="builder__summary-row"><dt>Дата</dt><dd id="sum-date">—</dd></div>
-                    <div class="builder__summary-row" id="sum-comment-row" hidden><dt>Комментарий</dt><dd id="sum-comment">—</dd></div>
-                  </dl>
-                  <div class="builder__summary-status" id="summary-status">
-                    <span class="builder__summary-status-dot"></span>
-                    Заполните поля слева
-                  </div>
-                </div>
-
-                <button type="submit" class="btn btn--primary btn--large btn--glow builder__submit" id="submit-btn">
-                  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.212l-.29-.175-3.07.912.912-3.07-.175-.29A8 8 0 1112 20z" fill="currentColor"/></svg>
-                  <span id="submit-label">Отправить в WhatsApp</span>
-                </button>
-                <div class="builder__handoff" id="wa-handoff" hidden role="status" aria-live="polite">
-                  <p class="builder__handoff-text">Текст заявки готов. Если WhatsApp не открылся автоматически — нажмите ссылку ниже.</p>
-                  <a class="builder__handoff-link" id="wa-fallback" href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer">Открыть WhatsApp вручную →</a>
-                </div>
-                <p class="builder__disclaimer">Вы перейдёте в WhatsApp с готовым текстом. Сайт не сохраняет данные.</p>
-              </div>
-            </aside>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- ═══════ GALLERY ═══════ -->
+    <!-- ГАЛЕРЕЯ -->
     <section class="gallery section" id="gallery" aria-labelledby="gallery-title">
       <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number" aria-hidden="true">03</span>
-          <h2 class="section__title" id="gallery-title">Атмосфера мастерской</h2>
-          <p class="section__lead">Глина, свет, сосредоточенные руки. Вот как выглядит процесс.</p>
+        <div class="section-head reveal">
+          <p class="eyebrow">Галерея форм</p>
+          <h2 id="gallery-title">Алфавит глины</h2>
+          <p class="section-sub gallery-disclaimer">Здесь — авторские иллюстрации классических керамических форм, а не фотографии работ мастерской. Реальные работы «Красного Круга» смотрите <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener">в сообществе ВКонтакте</a>.</p>
         </div>
-      </div>
 
-      <div class="gallery__strip reveal">
-        <div class="gallery__track" id="gallery-track">
-          <figure class="gallery__card gallery__card--tall">
-            <div class="gallery__visual" style="--bg: var(--clay-warm);">
-              <svg viewBox="0 0 300 440" aria-hidden="true">
-                <rect width="300" height="440" fill="var(--clay-warm)"/>
-                <circle cx="150" cy="260" r="90" fill="var(--brick)" opacity="0.08"/>
-                <circle cx="150" cy="260" r="60" fill="var(--brick)" opacity="0.06"/>
-                <path d="M115 255Q108 195 120 160Q133 130 150 125Q167 130 180 160Q192 195 185 255Z" fill="var(--terracotta)" opacity="0.45"/>
-                <ellipse cx="150" cy="125" rx="24" ry="7" fill="var(--clay-dark)" opacity="0.25"/>
-                <ellipse cx="150" cy="260" rx="70" ry="10" fill="none" stroke="var(--brick)" stroke-width="0.6" opacity="0.15" stroke-dasharray="4 6"/>
-                <text x="150" y="390" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">за кругом</text>
-              </svg>
-            </div>
-            <figcaption class="gallery__caption">Центрирование — первый шаг</figcaption>
+        <div class="gallery-wall">
+          <figure class="wall-item wall-tall reveal">
+            <button type="button" class="wall-open" data-art="art-vase" data-caption="Ваза — вытянутая форма, которую на круге поднимают одним дыханием." aria-label="Открыть иллюстрацию: ваза">
+              <svg aria-hidden="true"><use href="#art-vase"/></svg>
+            </button>
+            <figcaption><strong>Ваза</strong><span>форма вращения</span></figcaption>
           </figure>
-
-          <figure class="gallery__card">
-            <div class="gallery__visual" style="--bg: var(--paper-deep);">
-              <svg viewBox="0 0 300 280" aria-hidden="true">
-                <rect width="300" height="280" fill="var(--paper-deep)"/>
-                <ellipse cx="150" cy="160" rx="80" ry="45" fill="var(--clay)" opacity="0.3"/>
-                <path d="M95 150Q108 115 130 108Q150 102 170 108Q192 115 205 150" fill="none" stroke="var(--terracotta)" stroke-width="2" opacity="0.35"/>
-                <path d="M70 175Q85 158 105 165" fill="none" stroke="var(--brick)" stroke-width="1.8" opacity="0.2" stroke-linecap="round"/>
-                <path d="M230 175Q215 158 195 165" fill="none" stroke="var(--brick)" stroke-width="1.8" opacity="0.2" stroke-linecap="round"/>
-                <text x="150" y="245" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">лепка</text>
-              </svg>
-            </div>
-            <figcaption class="gallery__caption">Тёплая глина в ладонях</figcaption>
+          <figure class="wall-item reveal">
+            <button type="button" class="wall-open" data-art="art-mug" data-caption="Кружка — первая любовь большинства новичков: тело на круге, ручка вручную." aria-label="Открыть иллюстрацию: кружка">
+              <svg aria-hidden="true"><use href="#art-mug"/></svg>
+            </button>
+            <figcaption><strong>Кружка</strong><span>круг + ручная деталь</span></figcaption>
           </figure>
-
-          <figure class="gallery__card">
-            <div class="gallery__visual" style="--bg: var(--sand);">
-              <svg viewBox="0 0 300 280" aria-hidden="true">
-                <rect width="300" height="280" fill="var(--sand)"/>
-                <line x1="80" y1="60" x2="80" y2="200" stroke="var(--ink)" stroke-width="2.5" opacity="0.1" stroke-linecap="round"/>
-                <line x1="120" y1="50" x2="120" y2="205" stroke="var(--ink)" stroke-width="1.8" opacity="0.08" stroke-linecap="round"/>
-                <line x1="155" y1="65" x2="155" y2="198" stroke="var(--ink)" stroke-width="3" opacity="0.09" stroke-linecap="round"/>
-                <line x1="190" y1="55" x2="195" y2="202" stroke="var(--ink)" stroke-width="2" opacity="0.1" stroke-linecap="round"/>
-                <line x1="225" y1="70" x2="222" y2="195" stroke="var(--ink)" stroke-width="1.5" opacity="0.07" stroke-linecap="round"/>
-                <ellipse cx="150" cy="215" rx="100" ry="10" fill="var(--clay)" opacity="0.08"/>
-                <text x="150" y="255" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">инструменты</text>
-              </svg>
-            </div>
-            <figcaption class="gallery__caption">Простые инструменты, точные движения</figcaption>
+          <figure class="wall-item reveal">
+            <button type="button" class="wall-open" data-art="art-bowl" data-caption="Миска — широкая открытая форма, где видно каждое движение ладоней." aria-label="Открыть иллюстрацию: миска">
+              <svg aria-hidden="true"><use href="#art-bowl"/></svg>
+            </button>
+            <figcaption><strong>Миска</strong><span>открытая форма</span></figcaption>
           </figure>
-
-          <figure class="gallery__card gallery__card--wide">
-            <div class="gallery__visual" style="--bg: var(--clay-warm);">
-              <svg viewBox="0 0 620 280" aria-hidden="true">
-                <rect width="620" height="280" fill="var(--clay-warm)"/>
-                <rect x="40" y="120" width="540" height="90" rx="3" fill="var(--wood)" opacity="0.1"/>
-                <circle cx="130" cy="130" r="35" fill="var(--brick)" opacity="0.07"/>
-                <circle cx="310" cy="125" r="40" fill="var(--brick)" opacity="0.06"/>
-                <circle cx="490" cy="132" r="32" fill="var(--brick)" opacity="0.08"/>
-                <rect x="60" y="60" width="130" height="4" rx="2" fill="var(--ink)" opacity="0.04"/>
-                <rect x="250" y="55" width="150" height="4" rx="2" fill="var(--ink)" opacity="0.035"/>
-                <rect x="450" y="62" width="110" height="4" rx="2" fill="var(--ink)" opacity="0.04"/>
-                <text x="310" y="250" text-anchor="middle" fill="var(--ink)" opacity="0.15" font-family="var(--font-serif)" font-size="15" font-style="italic">пространство мастерской</text>
-              </svg>
-            </div>
-            <figcaption class="gallery__caption">Каждый за своим кругом, все вместе</figcaption>
+          <figure class="wall-item wall-wide reveal">
+            <button type="button" class="wall-open" data-art="art-plate" data-caption="Тарелка с кольцами — следы пальцев становятся орнаментом." aria-label="Открыть иллюстрация: тарелка">
+              <svg aria-hidden="true"><use href="#art-plate"/></svg>
+            </button>
+            <figcaption><strong>Тарелка</strong><span>кольца как орнамент</span></figcaption>
           </figure>
-
-          <figure class="gallery__card">
-            <div class="gallery__visual" style="--bg: var(--paper-deep);">
-              <svg viewBox="0 0 300 280" aria-hidden="true">
-                <rect width="300" height="280" fill="var(--paper-deep)"/>
-                <circle cx="105" cy="145" r="30" fill="var(--terracotta)" opacity="0.25"/>
-                <circle cx="170" cy="138" r="22" fill="var(--clay)" opacity="0.3"/>
-                <circle cx="215" cy="155" r="16" fill="var(--brick)" opacity="0.15"/>
-                <path d="M82 175Q95 162 108 168Q121 162 134 175" fill="none" stroke="var(--ink)" stroke-width="1" opacity="0.1"/>
-                <text x="150" y="245" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">детская лепка</text>
-              </svg>
-            </div>
-            <figcaption class="gallery__caption">Маленькие мастера, большие идеи</figcaption>
+          <figure class="wall-item reveal">
+            <button type="button" class="wall-open" data-art="art-cat" data-caption="Кот из жгутов — типичный герой детской лепки: характер важнее симметрии." aria-label="Открыть иллюстрацию: фигурка кота">
+              <svg aria-hidden="true"><use href="#art-cat"/></svg>
+            </button>
+            <figcaption><strong>Фигурка</strong><span>детская лепка</span></figcaption>
           </figure>
-
-          <figure class="gallery__card">
-            <div class="gallery__visual" style="--bg: var(--brick-muted);">
-              <svg viewBox="0 0 300 280" aria-hidden="true">
-                <rect width="300" height="280" fill="var(--brick-muted)"/>
-                <circle cx="150" cy="130" r="70" fill="none" stroke="var(--paper)" stroke-width="1" opacity="0.15"/>
-                <circle cx="150" cy="130" r="48" fill="none" stroke="var(--paper)" stroke-width="0.7" opacity="0.12"/>
-                <circle cx="150" cy="130" r="26" fill="var(--paper)" opacity="0.06"/>
-                <circle cx="150" cy="130" r="8" fill="var(--paper)" opacity="0.1"/>
-                <text x="150" y="245" text-anchor="middle" fill="var(--paper)" opacity="0.25" font-family="var(--font-serif)" font-size="15" font-style="italic">текстура</text>
-              </svg>
-            </div>
-            <figcaption class="gallery__caption">Фактура, которую хочется трогать</figcaption>
+          <figure class="wall-item reveal">
+            <button type="button" class="wall-open" data-art="art-stack" data-caption="Стопка чаш — когда одно посещение превращается в привычку." aria-label="Открыть иллюстрацию: стопка чаш">
+              <svg aria-hidden="true"><use href="#art-stack"/></svg>
+            </button>
+            <figcaption><strong>Стопка чаш</strong><span>серия</span></figcaption>
           </figure>
         </div>
-      </div>
-
-      <div class="gallery__controls reveal" aria-label="Управление галереей">
-        <button class="gallery__arrow gallery__arrow--prev" id="gal-prev" aria-label="Предыдущие">
-          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M13 4L7 10l6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="gallery__dots" id="gal-dots" aria-hidden="true"></div>
-        <button class="gallery__arrow gallery__arrow--next" id="gal-next" aria-label="Следующие">
-          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-
-      <div class="container">
-        <p class="gallery__note reveal">Иллюстрации передают атмосферу процесса. Фотографии работ мастерской смотрите во <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener noreferrer">ВКонтакте</a>.</p>
       </div>
     </section>
 
-    <!-- ═══════ FAQ ═══════ -->
+    <!-- ВОПРОСЫ НАЧИНАЮЩЕГО -->
     <section class="faq section" id="faq" aria-labelledby="faq-title">
-      <div class="container container--narrow">
-        <div class="section__header reveal">
-          <span class="section__number" aria-hidden="true">04</span>
-          <h2 class="section__title" id="faq-title">Вопросы начинающего</h2>
-          <p class="section__lead">То, что обычно спрашивают перед первым визитом.</p>
+      <div class="container faq-grid">
+        <div class="faq-intro reveal">
+          <p class="eyebrow">Вопросы начинающего</p>
+          <h2 id="faq-title">Первый раз —<br>самый честный</h2>
+          <p class="section-sub">Ответы на то, что обычно спрашивают перед первым визитом. Чего здесь нет — спросите напрямую: мастер отвечает в WhatsApp и ВКонтакте.</p>
+          <div class="faq-disc" aria-hidden="true"><i></i><i></i><i></i></div>
         </div>
-
-        <div class="faq__list" role="list">
-          <details class="faq__item reveal">
-            <summary class="faq__question">
-              <span>Я никогда не работал с глиной. Получится?</span>
-              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
-            </summary>
-            <div class="faq__answer">
-              <p>Да. Занятия рассчитаны на людей без опыта. Мастер показывает каждый шаг, помогает руками, если нужно. Первый раз — это всегда про удовольствие от процесса, а не про идеальный результат.</p>
-            </div>
+        <div class="faq-list reveal">
+          <details class="faq-item">
+            <summary>У меня совсем нет опыта. Не испорчу ли я занятие себе и другим?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Не испортите — занятия и построены вокруг первого раза. Мастер рядом весь процесс: показывает, придерживает, переделывает вместе с вами. Смятая стенка на круге — рабочий момент обучения, а не оценка способностей.</p></div>
           </details>
-
-          <details class="faq__item reveal">
-            <summary class="faq__question">
-              <span>Что надеть?</span>
-              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
-            </summary>
-            <div class="faq__answer">
-              <p>Что-то, что не жалко испачкать. Глина отмывается, но лучше прийти в удобной одежде. Фартуки обычно есть в мастерской — уточните при записи.</p>
-            </div>
+          <details class="faq-item">
+            <summary>Что надеть и что взять?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Одежду, которой не страшна глиняная пыль, покороче рукава и ногти без длинного покрытия — так удобнее работать. Остальное подскажет мастер при записи: детали зависят от выбранного формата.</p></div>
           </details>
-
-          <details class="faq__item reveal">
-            <summary class="faq__question">
-              <span>С какого возраста можно детям?</span>
-              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
-            </summary>
-            <div class="faq__answer">
-              <p>Лепка — примерно с 4 лет (при участии взрослого рядом). Гончарный круг — с 8 лет, когда ребёнок может дотянуться до педали и удерживать внимание. Точные условия уточняйте в WhatsApp.</p>
-            </div>
+          <details class="faq-item">
+            <summary>Мы хотим прийти с детьми. Это возможно?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Да, занятия для детей и взрослых в мастерской подтверждены. Укажите в конструкторе возраст детей — мастер подберёт подходящий формат и расскажет, как будет устроено занятие именно для вашей группы.</p></div>
           </details>
-
-          <details class="faq__item reveal">
-            <summary class="faq__question">
-              <span>Сколько длится занятие?</span>
-              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
-            </summary>
-            <div class="faq__answer">
-              <p>Зависит от формата и группы. Подробности расскажем при записи — напишите нам, и мы подберём удобный вариант.</p>
-            </div>
+          <details class="faq-item">
+            <summary>Чем лепка отличается от круга? Что выбрать первым?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Лепка — свобода формы и свой темп, круг — симметрия и концентрация. Подробное сравнение есть в разделе «Форматы» выше. Если сомневаетесь, выберите «хочу попробовать оба»: мастер поможет определиться в переписке.</p></div>
           </details>
-
-          <details class="faq__item reveal">
-            <summary class="faq__question">
-              <span>Можно прийти компанией?</span>
-              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
-            </summary>
-            <div class="faq__answer">
-              <p>Конечно. День рождения, свидание, тимбилдинг, просто вечер с друзьями — глина объединяет. Укажите количество человек в конструкторе выше, и мы обсудим формат.</p>
-            </div>
+          <details class="faq-item">
+            <summary>Я выбрал дату в конструкторе. Место уже за мной?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Нет. Дата в заявке — ваше пожелание. Сайт не показывает расписание и не бронирует время: мастер проверит возможность и подтвердит день ответным сообщением в WhatsApp.</p></div>
           </details>
-
-          <details class="faq__item reveal">
-            <summary class="faq__question">
-              <span>Как записаться?</span>
-              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
-            </summary>
-            <div class="faq__answer">
-              <p>Соберите заявку в <a href="#constructor">конструкторе выше</a> — она откроется как готовое сообщение в WhatsApp. Или напишите напрямую: <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer">wa.me/79039875438</a>. Мы ответим и согласуем дату.</p>
-            </div>
+          <details class="faq-item">
+            <summary>Сколько стоит и когда изделие будет готово?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Стоимость зависит от формата и числа участников, а судьба изделия после занятия — от решений мастерской. Мы не публикуем эти условия на сайте, чтобы не вводить в заблуждение: актуальные ответы даст мастер в переписке по вашей заявке.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Нас много. Возьмёте компанию?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>В конструкторе можно указать до 12 человек — дни рождения, свидания, тимбилдинги. Если вас больше, напишите в WhatsApp или ВКонтакте отдельно: обсудим формат большого визита.</p></div>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- ═══════ ROUTE ═══════ -->
+    <!-- МАРШРУТ -->
     <section class="route section" id="route" aria-labelledby="route-title">
-      <div class="container">
-        <div class="section__header reveal">
-          <span class="section__number" aria-hidden="true">05</span>
-          <h2 class="section__title" id="route-title">Как нас найти</h2>
+      <div class="container route-grid">
+        <div class="route-info reveal">
+          <p class="eyebrow">Маршрут</p>
+          <h2 id="route-title">Красноярск,<br>ул. Взлётная, 30</h2>
+          <address class="route-address">
+            <p>Гончарная мастерская «Красный Круг»<br>Красноярск, ул. Взлётная, 30</p>
+          </address>
+          <ol class="route-steps">
+            <li><span class="route-step-dot" aria-hidden="true"></span><div><strong>Откройте адрес в картах.</strong><span>Кнопки ниже строят маршрут от вашего местоположения — в Яндекс Картах или 2ГИС.</span></div></li>
+            <li><span class="route-step-dot" aria-hidden="true"></span><div><strong>Доберитесь до Взлётной, 30.</strong><span>Район Взлётки. Точный вход и ориентиры уточните у мастера в переписке перед визитом.</span></div></li>
+            <li><span class="route-step-dot" aria-hidden="true"></span><div><strong>Сообщите, что вы приехали.</strong><span>Напишите в WhatsApp — вас встретят и проводят к кругу.</span></div></li>
+          </ol>
+          <div class="route-actions">
+            <a class="btn btn-primary" href="https://wa.me/79039875438?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%B8%D1%88%D1%83%20%D0%BF%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%BE%D0%B4%D1%83%20%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D1%8F%20%D0%B2%20%C2%AB%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D0%BC%20%D0%9A%D1%80%D1%83%D0%B3%D0%B5%C2%BB." target="_blank" rel="noopener">Написать в WhatsApp</a>
+            <a class="btn btn-ghost" href="https://vk.ru/samredkrug" target="_blank" rel="noopener">Сообщество ВКонтакте</a>
+          </div>
+          <div class="route-map-links">
+            <a href="https://yandex.ru/maps/?text=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D1%8F%D1%80%D1%81%D0%BA%2C%20%D0%92%D0%B7%D0%BB%D1%91%D1%82%D0%BD%D0%B0%D1%8F%2030" target="_blank" rel="noopener">Маршрут в Яндекс Картах ↗</a>
+            <a href="https://2gis.ru/krasnoyarsk/search/%D0%92%D0%B7%D0%BB%D1%91%D1%82%D0%BD%D0%B0%D1%8F%2030" target="_blank" rel="noopener">Открыть в 2ГИС ↗</a>
+            <button type="button" class="linklike" id="copy-address">Скопировать адрес</button>
+          </div>
         </div>
 
-        <div class="route__layout">
-          <div class="route__info reveal">
-            <div class="route__address-block">
-              <div class="route__pin-wrap" aria-hidden="true">
-                <svg class="route__pin" width="40" height="40" viewBox="0 0 40 40">
-                  <circle cx="20" cy="17" r="16" fill="var(--brick)" opacity="0.1"/>
-                  <path d="M20 5C14.5 5 10 9.5 10 15c0 8 10 20 10 20s10-12 10-20c0-5.5-4.5-10-10-10zm0 14a4 4 0 110-8 4 4 0 010 8z" fill="var(--brick)"/>
-                </svg>
-              </div>
-              <div>
-                <p class="route__city">Красноярск</p>
-                <p class="route__street">ул. Взлётная, 30</p>
-              </div>
-            </div>
-
-            <div class="route__links">
-              <a href="https://yandex.ru/maps/?text=Красноярск+Взлётная+30" target="_blank" rel="noopener noreferrer" class="route__map-link">
-                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1" y="1" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M1 6h16M6 1v16" stroke="currentColor" stroke-width="0.8" opacity="0.4"/><circle cx="11" cy="10" r="2" fill="currentColor" opacity="0.5"/></svg>
-                Открыть в Яндекс Картах
-                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" class="route__ext"><path d="M5 2h7v7M12 2L5 9" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-              </a>
-              <a href="https://go.2gis.com/krasnoyarsk/search/Взлётная%2030" target="_blank" rel="noopener noreferrer" class="route__map-link">
-                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1" y="1" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 9h8M9 5v8" stroke="currentColor" stroke-width="1" opacity="0.4"/></svg>
-                Открыть в 2ГИС
-                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" class="route__ext"><path d="M5 2h7v7M12 2L5 9" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-              </a>
-            </div>
-
-            <div class="route__contacts">
-              <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer" class="route__contact route__contact--wa">
-                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.212l-.29-.175-3.07.912.912-3.07-.175-.29A8 8 0 1112 20z" fill="currentColor"/></svg>
-                WhatsApp
-              </a>
-              <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener noreferrer" class="route__contact route__contact--vk">
-                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.587-1.496c.596-.19 1.365 1.26 2.179 1.816.616.42 1.084.328 1.084.328l2.175-.03s1.14-.07.599-.964c-.044-.073-.314-.661-1.618-1.869-1.366-1.265-1.183-1.06.462-3.246.999-1.33 1.398-2.143 1.273-2.491-.12-.332-.856-.244-.856-.244l-2.454.015s-.182-.025-.317.056c-.133.079-.218.264-.218.264s-.392 1.044-.914 1.932c-1.103 1.876-1.544 1.976-1.724 1.86-.419-.272-.314-1.092-.314-1.674 0-1.821.276-2.58-.539-2.777-.27-.065-.47-.108-1.16-.115-.886-.01-1.636.003-2.06.21-.283.138-.5.446-.368.464.164.022.535.1.732.367.254.345.245 1.12.245 1.12s.146 2.144-.34 2.41c-.334.183-.792-.19-1.776-1.893-.504-.872-.884-1.836-.884-1.836s-.074-.18-.205-.277c-.159-.117-.381-.154-.381-.154l-2.334.015s-.35.01-.479.163c-.114.135-.009.414-.009.414s1.838 4.3 3.92 6.467c1.907 1.987 4.073 1.856 4.073 1.856h.982z" fill="currentColor"/></svg>
-                ВКонтакте
-              </a>
-            </div>
-          </div>
-
-          <div class="route__map-embed reveal" aria-label="Карта расположения мастерской">
-            <div class="route__map-placeholder">
-              <svg viewBox="0 0 500 380" aria-hidden="true">
-                <rect width="500" height="380" fill="var(--paper-deep)"/>
-                <line x1="0" y1="90" x2="500" y2="90" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
-                <line x1="0" y1="180" x2="500" y2="180" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
-                <line x1="0" y1="270" x2="500" y2="270" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
-                <line x1="100" y1="0" x2="100" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
-                <line x1="200" y1="0" x2="200" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
-                <line x1="300" y1="0" x2="300" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
-                <line x1="400" y1="0" x2="400" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
-                <path d="M0 190 Q150 185 250 190 Q350 195 500 187" stroke="var(--ink)" stroke-width="3.5" opacity="0.07" fill="none"/>
-                <path d="M250 0 Q245 110 250 190 Q255 270 248 380" stroke="var(--ink)" stroke-width="3" opacity="0.06" fill="none"/>
-                <path d="M80 0 Q120 130 180 190" stroke="var(--ink)" stroke-width="1.5" opacity="0.04" fill="none"/>
-                <path d="M420 50 Q380 140 320 190" stroke="var(--ink)" stroke-width="1.5" opacity="0.04" fill="none"/>
-                <!-- pulse ring -->
-                <circle cx="250" cy="180" r="30" fill="var(--brick)" opacity="0.06" class="map-pulse"/>
-                <circle cx="250" cy="180" r="18" fill="var(--brick)" opacity="0.12"/>
-                <path d="M250 162c-6 0-11 5-11 11 0 8 11 20 11 20s11-12 11-20c0-6-5-11-11-11zm0 15a4 4 0 110-8 4 4 0 010 8z" fill="var(--brick)"/>
-                <text x="250" y="225" text-anchor="middle" fill="var(--ink)" opacity="0.35" font-family="var(--font-sans)" font-size="12" font-weight="600">Взлётная, 30</text>
-                <text x="250" y="340" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-sans)" font-size="10">Нажмите «Открыть в картах» для навигации</text>
-              </svg>
-            </div>
-          </div>
+        <div class="route-map reveal" role="img" aria-label="Условная схема проезда: мастерская «Красный Круг» на улице Взлётной, 30, Красноярск">
+          <svg viewBox="0 0 520 440" class="map-svg" aria-hidden="true">
+            <rect width="520" height="440" fill="#EDE2CC"/>
+            <g stroke="#D9C8A6" stroke-width="30" stroke-linecap="round" fill="none">
+              <path d="M-20 130 C 140 110, 300 160, 540 120"/>
+              <path d="M-20 320 C 170 340, 350 280, 540 320"/>
+              <path d="M140 -20 C 130 150, 170 300, 140 460"/>
+              <path d="M390 -20 C 410 130, 370 310, 400 460"/>
+            </g>
+            <g stroke="#F4EBDD" stroke-width="20" stroke-linecap="round" fill="none">
+              <path d="M-20 130 C 140 110, 300 160, 540 120"/>
+              <path d="M-20 320 C 170 340, 350 280, 540 320"/>
+              <path d="M140 -20 C 130 150, 170 300, 140 460"/>
+              <path d="M390 -20 C 410 130, 370 310, 400 460"/>
+            </g>
+            <path d="M148 224 C 230 212, 310 236, 384 220" stroke="#B23A22" stroke-width="6" stroke-dasharray="2 12" stroke-linecap="round" fill="none"/>
+            <text x="262" y="204" class="map-street" text-anchor="middle">ул. Взлётная</text>
+            <g transform="translate(266 252)">
+              <circle r="36" fill="#B23A22" opacity="0.16">
+                <animate attributeName="r" values="28;44;28" dur="3.4s" repeatCount="indefinite"/>
+              </circle>
+              <circle r="17" fill="#B23A22"/>
+              <circle r="10" fill="none" stroke="#F4EBDD" stroke-width="2.5"/>
+              <circle r="3.5" fill="#F4EBDD"/>
+            </g>
+            <g transform="translate(266 306)">
+              <rect x="-86" y="-17" width="172" height="36" rx="18" fill="#221C16"/>
+              <text y="6" text-anchor="middle" class="map-label">Красный Круг · д. 30</text>
+            </g>
+            <text x="24" y="416" class="map-note">схема условная · точный маршрут — кнопками слева</text>
+          </svg>
         </div>
       </div>
     </section>
-
-    <!-- ═══════ CTA BAND ═══════ -->
-    <section class="cta-band" aria-label="Призыв к действию">
-      <div class="cta-band__bg" aria-hidden="true"></div>
-      <div class="container">
-        <div class="cta-band__inner reveal">
-          <p class="cta-band__text">Глина ждёт ваших рук</p>
-          <a href="#constructor" class="btn btn--light btn--large">Собрать посещение</a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- ═══════ FOOTER ═══════ -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer__inner">
-        <div class="footer__brand">
-          <svg class="footer__mark" viewBox="0 0 40 40" width="32" height="32" aria-hidden="true">
-            <circle cx="20" cy="20" r="18" fill="var(--brick)"/>
-            <circle cx="20" cy="20" r="11" fill="none" stroke="var(--paper)" stroke-width="1.5"/>
-            <circle cx="20" cy="20" r="4" fill="var(--paper)"/>
-          </svg>
-          <span class="footer__name">Красный Круг</span>
-          <span class="footer__city">Красноярск · Взлётная, 30</span>
-        </div>
-        <div class="footer__links">
-          <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener noreferrer">ВКонтакте</a>
-          <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        </div>
-        <p class="footer__concept">Концепт сайта</p>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand brand-footer" href="#top">
+          <span class="brand-disc" aria-hidden="true"><i></i></span>
+          <span class="brand-text">Красный&nbsp;Круг<small>гончарная мастерская</small></span>
+        </a>
+        <p>Из комка глины — в вещь с характером.<br>Красноярск, ул. Взлётная, 30.</p>
       </div>
+      <nav class="footer-nav" aria-label="Навигация в футере">
+        <a href="#constructor">Конструктор посещения</a>
+        <a href="#formats">Лепка и круг</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#faq">Вопросы начинающего</a>
+        <a href="#route">Маршрут</a>
+      </nav>
+      <div class="footer-links">
+        <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener">ВКонтакте ↗</a>
+        <a href="https://wa.me/79039875438" target="_blank" rel="noopener">WhatsApp ↗</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> Гончарная мастерская «Красный Круг»</p>
+      <p class="concept-note">Концепт сайта</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Лайтбокс -->
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-caption">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Закрыть">×</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Предыдущая иллюстрация">←</button>
+    <figure class="lightbox-figure">
+      <svg id="lightbox-svg" role="img" aria-label="Иллюстрация керамической формы"><use id="lightbox-use" href="#art-vase"/></svg>
+      <figcaption id="lightbox-caption"></figcaption>
+      <p class="lightbox-note">Авторская иллюстрация, не фотография работ мастерской</p>
+    </figure>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Следующая иллюстрация">→</button>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>

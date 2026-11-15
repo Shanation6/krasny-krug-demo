@@ -1,550 +1,523 @@
-/* ═══════════════════════════════════════════
-   КРАСНЫЙ КРУГ — script.js
-   Canvas · конструктор · галерея · анимации
-   ═══════════════════════════════════════════ */
-
+/* «Красный Круг» — гончарная мастерская. Конструктор посещения, галерея, навигация. */
 (function () {
   'use strict';
 
-  var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
-  var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var WHATSAPP_PHONE = '79039875438';
+  var ADDRESS = 'Красноярск, ул. Взлётная, 30 — гончарная мастерская «Красный Круг»';
+  var MIN_PEOPLE = 1;
+  var MAX_PEOPLE = 12;
+  var COMMENT_LIMIT = 300;
 
-  /* ═══════ CANVAS POTTERY WHEEL ═══════ */
-  var canvas = $('#wheel-canvas');
-  var ctx = canvas ? canvas.getContext('2d') : null;
-  if (canvas && ctx && !reducedMotion) {
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var cw, ch, cx, cy, baseR;
-    var angle = 0;
-    var rafId = null;
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
-    function resizeCanvas() {
-      var rect = canvas.parentElement.getBoundingClientRect();
-      cw = rect.width;
-      ch = rect.height;
-      canvas.width = cw * dpr;
-      canvas.height = ch * dpr;
-      canvas.style.width = cw + 'px';
-      canvas.style.height = ch + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cx = cw * 0.72;
-      cy = ch * 0.52;
-      baseR = Math.min(cw, ch) * 0.32;
-    }
-
-    function drawWheel(t) {
-      ctx.clearRect(0, 0, cw, ch);
-      angle += 0.003;
-
-      for (var i = 0; i < 5; i++) {
-        var r = baseR * (1 - i * 0.15);
-        var alpha = 0.04 + i * 0.015;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(184, 58, 42, ' + alpha + ')';
-        ctx.lineWidth = 1 + i * 0.3;
-        ctx.stroke();
-      }
-
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(angle);
-      for (var j = 0; j < 3; j++) {
-        var rr = baseR * (0.5 + j * 0.2);
-        ctx.beginPath();
-        ctx.arc(0, 0, rr, 0, Math.PI * 2);
-        ctx.setLineDash([4 + j * 2, 8 + j * 3]);
-        ctx.lineDashOffset = t * 0.02 * (j % 2 === 0 ? 1 : -1);
-        ctx.strokeStyle = 'rgba(184, 58, 42, ' + (0.06 + j * 0.02) + ')';
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-      ctx.setLineDash([]);
-      ctx.restore();
-
-      var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR * 0.4);
-      grad.addColorStop(0, 'rgba(184, 58, 42, 0.06)');
-      grad.addColorStop(1, 'rgba(184, 58, 42, 0)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, baseR * 0.4, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, 4, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(184, 58, 42, 0.15)';
-      ctx.fill();
-
-      for (var p = 0; p < 8; p++) {
-        var pa = angle * (0.5 + p * 0.1) + p * 0.8;
-        var pr = baseR * (0.6 + Math.sin(t * 0.001 + p) * 0.15);
-        var px = cx + Math.cos(pa) * pr;
-        var py = cy + Math.sin(pa) * pr;
-        ctx.beginPath();
-        ctx.arc(px, py, 1.5 + Math.sin(t * 0.002 + p) * 0.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(201, 123, 90, ' + (0.08 + Math.sin(t * 0.001 + p) * 0.04) + ')';
-        ctx.fill();
-      }
-
-      rafId = requestAnimationFrame(drawWheel);
-    }
-
-    resizeCanvas();
-    rafId = requestAnimationFrame(drawWheel);
-
-    var resizeTimer;
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resizeCanvas, 150);
-    });
-
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) {
-          if (!rafId) rafId = requestAnimationFrame(drawWheel);
-        } else {
-          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-        }
-      }, { threshold: 0 }).observe(canvas);
-    }
+  /* ---------- Тост ---------- */
+  var toastEl = $('#toast');
+  var toastTimer = null;
+  function toast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('is-visible'); }, 2600);
   }
 
-  /* ═══════ NAVIGATION ═══════ */
-  var nav = $('#nav');
-  var burger = $('#burger');
-  var navLinks = $('#nav-links');
-  var overlay = null;
-
-  function createOverlay() {
-    overlay = document.createElement('div');
-    overlay.className = 'nav-overlay';
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(overlay);
-    overlay.addEventListener('click', closeMenu);
-  }
-
-  function openMenu() {
-    burger.setAttribute('aria-expanded', 'true');
-    burger.setAttribute('aria-label', 'Закрыть меню');
-    navLinks.classList.add('is-open');
-    if (!overlay) createOverlay();
-    overlay.classList.add('is-active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'Открыть меню');
-    navLinks.classList.remove('is-open');
-    if (overlay) overlay.classList.remove('is-active');
-    document.body.style.overflow = '';
-  }
-
-  burger.addEventListener('click', function () {
-    var isOpen = this.getAttribute('aria-expanded') === 'true';
-    isOpen ? closeMenu() : openMenu();
-  });
-
-  $$('.nav__link, .nav__cta', navLinks).forEach(function (link) {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') {
-      closeMenu();
-      burger.focus();
-    }
-  });
-
-  /* ═══════ SCROLL PROGRESS + NAV STATE ═══════ */
-  var scrollProgress = $('#scroll-progress');
-  var sections = $$('section[id]');
-  var navAnchors = $$('.nav__link');
+  /* ---------- Шапка: тень и прогресс чтения при скролле ---------- */
+  var header = $('.site-header');
+  var progressBar = $('#scroll-progress-bar');
 
   function onScroll() {
-    var y = window.scrollY;
-    nav.classList.toggle('nav--scrolled', y > 40);
-
-    var docH = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = docH > 0 ? (y / docH) * 100 : 0;
-    scrollProgress.style.width = pct + '%';
-
-    var scrollPos = y + 120;
-    var currentId = '';
-    sections.forEach(function (sec) {
-      if (sec.offsetTop <= scrollPos) currentId = sec.id;
-    });
-    navAnchors.forEach(function (a) {
-      var href = a.getAttribute('href');
-      a.classList.toggle('nav__link--active', href === '#' + currentId);
-    });
+    header.classList.toggle('is-scrolled', window.scrollY > 8);
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+    progressBar.style.width = pct + '%';
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
   onScroll();
 
-  /* ═══════ REVEAL ON SCROLL ═══════ */
-  var reveals = $$('.reveal');
-  if ('IntersectionObserver' in window && !reducedMotion) {
-    var revealObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            var delay = parseInt(entry.target.getAttribute('data-delay') || '0', 10);
-            setTimeout(function () {
-              entry.target.classList.add('is-visible');
-            }, delay * 120);
-            revealObserver.unobserve(entry.target);
-          }
+  /* ---------- Мобильное меню ---------- */
+  var navToggle = $('.nav-toggle');
+  var siteNav = $('#site-nav');
+
+  function closeMenu() {
+    siteNav.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Открыть меню');
+  }
+  navToggle.addEventListener('click', function () {
+    var open = siteNav.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+  });
+  $$('a', siteNav).forEach(function (link) { link.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && siteNav.classList.contains('is-open')) {
+      closeMenu();
+      navToggle.focus();
+    }
+  });
+  document.addEventListener('click', function (e) {
+    if (siteNav.classList.contains('is-open') && !siteNav.contains(e.target) && !navToggle.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  /* ---------- Активный раздел в навигации ---------- */
+  var navLinks = $$('a[href^="#"]', siteNav);
+  var sections = navLinks
+    .map(function (a) { return $(a.getAttribute('href')); })
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    var sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(function (a) {
+          a.classList.toggle('is-active', a.getAttribute('href') === '#' + entry.target.id);
         });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-    reveals.forEach(function (el) { revealObserver.observe(el); });
-  } else {
-    reveals.forEach(function (el) { el.classList.add('is-visible'); });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function (s) { sectionObserver.observe(s); });
   }
 
-  /* ═══════ STEPPER ═══════ */
-  var peopleInput = $('#people-count');
+  /* ---------- Появление блоков при скролле ---------- */
+  var revealEls = $$('.reveal');
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* ---------- Гончарный круг героя: ускоряется от курсора/касания ---------- */
+  var wheelStage = $('#wheel-stage');
+  if (wheelStage) {
+    var setWheelFast = function (fast) {
+      wheelStage.classList.toggle('is-fast', fast);
+      wheelStage.style.setProperty('--disc-speed', fast ? '3s' : '14s');
+    };
+    wheelStage.addEventListener('pointerenter', function () { setWheelFast(true); });
+    wheelStage.addEventListener('pointerleave', function () { setWheelFast(false); });
+    wheelStage.addEventListener('click', function () {
+      setWheelFast(!wheelStage.classList.contains('is-fast'));
+    });
+  }
+
+  /* ---------- Конструктор посещения ---------- */
+  var form = $('#visit-form');
+  var peopleInput = $('#people-input');
+  var peopleValue = $('#people-value');
+  var peopleHint = $('#people-hint');
   var minusBtn = $('#people-minus');
   var plusBtn = $('#people-plus');
+  var kidsWrap = $('#kids-age-wrap');
+  var kidsInput = $('#kids-age');
+  var kidsError = $('#kids-age-error');
+  var dateInput = $('#wish-date');
+  var dateError = $('#date-error');
+  var flexCheck = $('#date-flex');
+  var commentInput = $('#comment');
+  var commentCount = $('#comment-count');
+  var summaryCard = $('#summary-card');
 
-  function clampPeople(val) {
-    var n = parseInt(val, 10);
-    if (isNaN(n)) n = 1;
-    return Math.max(1, Math.min(20, n));
+  var AGE_LABELS = {
+    adults: 'Взрослые',
+    kids: 'Дети',
+    family: 'Вместе, семьёй'
+  };
+  var FORMAT_LABELS = {
+    hand: 'Лепка руками',
+    wheel: 'Гончарный круг',
+    both: 'Оба формата — выбор за мастером'
+  };
+  var MONTHS = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+    'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+
+  function todayISO() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return d.getFullYear() + '-' + m + '-' + day;
+  }
+  dateInput.min = todayISO();
+
+  function plural(n, one, few, many) {
+    var mod10 = n % 10;
+    var mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return one;
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
+    return many;
+  }
+
+  function parseKidsAges(raw) {
+    // Пустое поле допустимо; иначе список целых чисел 3–17 через запятую, пробелы или «и».
+    // \b не работает с кириллицей в JS — границы слова задаём явно.
+    var cleaned = raw.trim().replace(/(^|[\s,;])и(?=$|[\s,;])/gi, '$1,');
+    if (cleaned === '') return { valid: true, ages: [] };
+    var tokens = cleaned.split(/[,\s;]+/).filter(Boolean);
+    var ages = [];
+    for (var i = 0; i < tokens.length; i++) {
+      if (!/^\d{1,2}$/.test(tokens[i])) return { valid: false, ages: [] };
+      var n = parseInt(tokens[i], 10);
+      if (n < 3 || n > 17) return { valid: false, ages: [] };
+      ages.push(n);
+    }
+    return { valid: true, ages: ages };
+  }
+
+  function getState() {
+    var age = (form.querySelector('input[name="age"]:checked') || {}).value || 'adults';
+    var format = (form.querySelector('input[name="format"]:checked') || {}).value || 'hand';
+    var people = parseInt(peopleInput.value, 10) || MIN_PEOPLE;
+    return {
+      age: age,
+      format: format,
+      people: people,
+      kidsRaw: kidsInput.value.trim(),
+      flexible: flexCheck.checked,
+      date: dateInput.value,
+      comment: commentInput.value.trim()
+    };
+  }
+
+  function formatDateHuman(iso) {
+    var parts = iso.split('-');
+    if (parts.length !== 3) return iso;
+    var y = parseInt(parts[0], 10);
+    var m = parseInt(parts[1], 10);
+    var d = parseInt(parts[2], 10);
+    if (!y || !m || !d) return iso;
+    return d + ' ' + MONTHS[m - 1] + ' ' + y;
+  }
+
+  function dateSummaryText(state) {
+    if (state.flexible) return 'Гибкая — уточним в переписке';
+    if (state.date) return formatDateHuman(state.date) + ' (пожелание)';
+    return 'Не выбрана — уточним в переписке';
+  }
+
+  function buildMessage(state) {
+    var lines = [];
+    lines.push('Здравствуйте! Хочу собрать посещение гончарной мастерской «Красный Круг» (Взлётная, 30).');
+    lines.push('');
+
+    var groupLine = 'Группа: ' + AGE_LABELS[state.age].toLowerCase();
+    var parsed = parseKidsAges(state.kidsRaw);
+    if ((state.age === 'kids' || state.age === 'family') && parsed.valid && parsed.ages.length) {
+      groupLine += ', возраст детей: ' + parsed.ages.join(', ');
+    }
+    lines.push(groupLine + '.');
+    lines.push('Участников: ' + state.people + '.');
+    lines.push('Формат: ' + FORMAT_LABELS[state.format].toLowerCase() + '.');
+
+    if (state.flexible) {
+      lines.push('Дата: гибкая, подстроюсь под мастерскую.');
+    } else if (state.date) {
+      lines.push('Желаемая дата: ' + formatDateHuman(state.date) + ' (понимаю, что это пожелание — подтвердите, пожалуйста, свободное время).');
+    } else {
+      lines.push('Дата: пока не выбрана, подскажите ближайшие варианты.');
+    }
+
+    if (state.comment) {
+      lines.push('');
+      lines.push('Комментарий: ' + state.comment);
+    }
+    lines.push('');
+    lines.push('Подскажите, пожалуйста, стоимость и удобное время. Спасибо!');
+    return lines.join('\n');
+  }
+
+  function peopleHintText(n) {
+    if (n === 1) return 'один на один с глиной и мастером';
+    if (n === 2) return 'пара за одним столом';
+    if (n <= 4) return 'небольшая компания';
+    if (n <= 8) return 'дружная компания или семейный праздник';
+    return 'большая группа — детали обсудим в переписке';
+  }
+
+  function setPeople(n) {
+    n = Math.max(MIN_PEOPLE, Math.min(MAX_PEOPLE, n));
+    peopleInput.value = String(n);
+    peopleValue.textContent = String(n);
+    peopleHint.textContent = peopleHintText(n);
+    minusBtn.disabled = n <= MIN_PEOPLE;
+    plusBtn.disabled = n >= MAX_PEOPLE;
   }
 
   minusBtn.addEventListener('click', function () {
-    peopleInput.value = clampPeople(parseInt(peopleInput.value, 10) - 1);
-    peopleInput.dispatchEvent(new Event('input', { bubbles: true }));
+    setPeople(parseInt(peopleInput.value, 10) - 1);
+    render();
+    pulseSummary();
   });
   plusBtn.addEventListener('click', function () {
-    peopleInput.value = clampPeople(parseInt(peopleInput.value, 10) + 1);
-    peopleInput.dispatchEvent(new Event('input', { bubbles: true }));
-  });
-  peopleInput.addEventListener('change', function () {
-    this.value = clampPeople(this.value);
-    updateSummary();
+    setPeople(parseInt(peopleInput.value, 10) + 1);
+    render();
+    pulseSummary();
   });
 
-  /* ═══════ DATE MIN ═══════ */
-  var dateInput = $('#visit-date');
-  var today = new Date();
-  var yyyy = today.getFullYear();
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var dd = String(today.getDate()).padStart(2, '0');
-  dateInput.setAttribute('min', yyyy + '-' + mm + '-' + dd);
+  function validateKids(showErrors) {
+    var state = getState();
+    var needed = state.age === 'kids' || state.age === 'family';
+    var valid = !needed || parseKidsAges(kidsInput.value).valid;
+    if (showErrors) {
+      kidsInput.classList.toggle('is-invalid', !valid);
+      kidsError.hidden = valid;
+    } else if (valid) {
+      kidsInput.classList.remove('is-invalid');
+      kidsError.hidden = true;
+    }
+    return valid;
+  }
 
-  /* ═══════ CHARACTER COUNTER ═══════ */
-  var commentArea = $('#visit-comment');
-  var charCurrent = $('#char-current');
-  commentArea.addEventListener('input', function () {
-    charCurrent.textContent = this.value.length;
-    updateSummary();
-  });
+  function validateDate(showErrors) {
+    var valid = true;
+    if (!flexCheck.checked && dateInput.value) {
+      valid = dateInput.value >= todayISO();
+    }
+    if (showErrors) {
+      dateInput.classList.toggle('is-invalid', !valid);
+      dateError.hidden = valid;
+    } else if (valid) {
+      dateInput.classList.remove('is-invalid');
+      dateError.hidden = true;
+    }
+    return valid;
+  }
 
-  /* ═══════ LIVE SUMMARY ═══════ */
   var sumAge = $('#sum-age');
   var sumPeople = $('#sum-people');
   var sumFormat = $('#sum-format');
   var sumDate = $('#sum-date');
-  var sumComment = $('#sum-comment');
   var sumCommentRow = $('#sum-comment-row');
-  var summaryStatus = $('#summary-status');
+  var sumComment = $('#sum-comment');
+  var preview = $('#message-preview');
 
-  function getRadioValue(name) {
-    var checked = $('input[name="' + name + '"]:checked');
-    return checked ? checked.value : '';
+  function updateCommentCount() {
+    var len = commentInput.value.length;
+    commentCount.textContent = len + ' / ' + COMMENT_LIMIT;
+    commentCount.classList.toggle('is-limit', len >= COMMENT_LIMIT);
   }
 
-  function formatDateRu(iso) {
-    if (!iso) return '—';
-    var parts = iso.split('-');
-    if (parts.length !== 3) return iso;
-    var months = [
-      'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-      'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-    ];
-    var d = parseInt(parts[2], 10);
-    var m = parseInt(parts[1], 10) - 1;
-    return d + ' ' + months[m] + ' ' + parts[0];
-  }
+  function render() {
+    var state = getState();
 
-  function pluralPeople(n) {
-    n = parseInt(n, 10);
-    if (isNaN(n)) return '—';
-    var mod10 = n % 10;
-    var mod100 = n % 100;
-    if (mod10 === 1 && mod100 !== 11) return n + ' человек';
-    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return n + ' человека';
-    return n + ' человек';
-  }
+    var needsKids = state.age === 'kids' || state.age === 'family';
+    kidsWrap.hidden = !needsKids;
+    dateInput.disabled = state.flexible;
 
-  function updateSummary() {
-    var age = getRadioValue('age');
-    var format = getRadioValue('format');
-    var people = peopleInput.value;
-    var date = dateInput.value;
-    var comment = commentArea.value.trim();
-
-    sumAge.textContent = age || '—';
-    sumPeople.textContent = pluralPeople(people);
-    sumFormat.textContent = format || '—';
-    sumDate.textContent = formatDateRu(date);
-
-    if (comment) {
-      sumComment.textContent = comment;
-      sumCommentRow.hidden = false;
-    } else {
-      sumCommentRow.hidden = true;
+    var ageText = AGE_LABELS[state.age];
+    var parsed = parseKidsAges(state.kidsRaw);
+    if (needsKids && parsed.valid && parsed.ages.length) {
+      ageText += ' · возраст: ' + parsed.ages.join(', ');
     }
-
-    updateFormProgress(age, format, date);
-    updateSummaryStatus(age, format, date);
+    sumAge.textContent = ageText;
+    sumPeople.textContent = state.people + ' ' + plural(state.people, 'человек', 'человека', 'человек');
+    sumFormat.textContent = FORMAT_LABELS[state.format];
+    sumDate.textContent = dateSummaryText(state);
+    sumCommentRow.hidden = !state.comment;
+    sumComment.textContent = state.comment;
+    preview.textContent = buildMessage(state);
+    updateCommentCount();
   }
 
-  /* ═══════ FORM PROGRESS ═══════ */
-  var formProgress = $('#form-progress');
-  var progressSteps = $$('.builder__step');
-
-  function updateFormProgress(age, format, date) {
-    var filled = 0;
-    var total = 4;
-    if (age) filled++;
-    if (parseInt(peopleInput.value, 10) >= 1) filled++;
-    if (format) filled++;
-    if (date) filled++;
-
-    formProgress.style.width = (filled / total * 100) + '%';
-
-    progressSteps.forEach(function (step) {
-      var key = step.getAttribute('data-step');
-      var done = false;
-      if (key === 'age' && age) done = true;
-      if (key === 'people' && parseInt(peopleInput.value, 10) >= 1) done = true;
-      if (key === 'format' && format) done = true;
-      if (key === 'date' && date) done = true;
-      step.classList.toggle('is-done', done);
-    });
+  var pulseTimer = null;
+  function pulseSummary() {
+    summaryCard.classList.remove('is-pulse');
+    void summaryCard.offsetWidth;
+    summaryCard.classList.add('is-pulse');
+    clearTimeout(pulseTimer);
+    pulseTimer = setTimeout(function () { summaryCard.classList.remove('is-pulse'); }, 550);
   }
 
-  function updateSummaryStatus(age, format, date) {
-    var ready = age && format && date;
-    summaryStatus.classList.toggle('is-ready', !!ready);
-    if (ready) {
-      summaryStatus.innerHTML = '<span class="builder__summary-status-dot"></span>Готово к отправке';
+  form.addEventListener('change', function (e) {
+    if (e.target.name === 'age') { validateKids(true); }
+    if (e.target === flexCheck) { validateDate(true); }
+    render();
+    pulseSummary();
+  });
+  form.addEventListener('input', function (e) {
+    if (e.target === kidsInput) { validateKids(true); }
+    if (e.target === dateInput) { validateDate(true); }
+    render();
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); });
+
+  $('#wa-submit').addEventListener('click', function () {
+    var okKids = validateKids(true);
+    var okDate = validateDate(true);
+    if (!okKids) { kidsInput.focus(); toast('Проверьте возраст детей'); return; }
+    if (!okDate) { dateInput.focus(); toast('Проверьте желаемую дату'); return; }
+
+    var message = buildMessage(getState());
+    var url = 'https://wa.me/' + WHATSAPP_PHONE + '?text=' + encodeURIComponent(message);
+    window.open(url, '_blank', 'noopener');
+    toast('Заявка открылась в WhatsApp — отправьте её сами');
+  });
+
+  /* ---------- Копирование с запасными путями ---------- */
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function showManualCopy(text) {
+    var existing = $('#manual-copy');
+    if (existing) { existing.remove(); }
+    var box = document.createElement('dialog');
+    box.id = 'manual-copy';
+    box.className = 'manual-copy';
+    box.setAttribute('aria-label', 'Скопируйте текст вручную');
+
+    var title = document.createElement('p');
+    title.className = 'manual-copy-title';
+    title.textContent = 'Браузер не дал доступ к буферу обмена. Выделите и скопируйте текст:';
+    var area = document.createElement('textarea');
+    area.className = 'manual-copy-area';
+    area.readOnly = true;
+    area.value = text;
+    var closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'btn btn-primary btn-sm';
+    closeBtn.textContent = 'Готово';
+
+    box.appendChild(title);
+    box.appendChild(area);
+    box.appendChild(closeBtn);
+    document.body.appendChild(box);
+
+    function done() {
+      if (typeof box.close === 'function' && box.open) { box.close(); }
+      box.remove();
+    }
+    closeBtn.addEventListener('click', done);
+    box.addEventListener('click', function (e) { if (e.target === box) done(); });
+    box.addEventListener('cancel', function () { box.remove(); });
+
+    if (typeof box.showModal === 'function') { box.showModal(); }
+    else { box.setAttribute('open', ''); }
+    area.focus();
+    area.select();
+    area.setSelectionRange(0, text.length);
+  }
+
+  function copyText(text, okMsg) {
+    function fallback() {
+      if (legacyCopy(text)) {
+        toast(okMsg);
+      } else {
+        showManualCopy(text);
+      }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { toast(okMsg); },
+        fallback
+      );
     } else {
-      summaryStatus.innerHTML = '<span class="builder__summary-status-dot"></span>Заполните обязательные поля';
+      fallback();
     }
   }
 
-  var form = $('#builder-form');
-  form.addEventListener('input', updateSummary);
-  form.addEventListener('change', updateSummary);
-  updateSummary();
+  $('#copy-request').addEventListener('click', function () {
+    copyText(buildMessage(getState()), 'Текст заявки скопирован');
+  });
+  $('#copy-address').addEventListener('click', function () {
+    copyText(ADDRESS, 'Адрес скопирован');
+  });
 
-  /* ═══════ FORMAT PRE-SELECT ═══════ */
-  $$('.format-panel__cta').forEach(function (cta) {
-    cta.addEventListener('click', function () {
-      var formatValue = this.getAttribute('data-format');
-      if (formatValue) {
-        var radio = $('input[name="format"][value="' + formatValue + '"]');
-        if (radio) {
-          radio.checked = true;
-          radio.dispatchEvent(new Event('change', { bubbles: true }));
-        }
+  setPeople(2);
+  render();
+
+  /* ---------- Галерея: лайтбокс ---------- */
+  var lightbox = $('#lightbox');
+  var lightboxUse = $('#lightbox-use');
+  var lightboxCaption = $('#lightbox-caption');
+  var galleryButtons = $$('.wall-open');
+  var currentIndex = 0;
+  var lastFocused = null;
+
+  function showSlide(index) {
+    currentIndex = (index + galleryButtons.length) % galleryButtons.length;
+    var btn = galleryButtons[currentIndex];
+    lightboxUse.setAttribute('href', '#' + btn.dataset.art);
+    lightboxCaption.textContent = btn.dataset.caption;
+  }
+
+  function openLightbox(index) {
+    lastFocused = document.activeElement;
+    showSlide(index);
+    if (typeof lightbox.showModal === 'function') {
+      lightbox.showModal();
+    } else {
+      lightbox.setAttribute('open', '');
+    }
+    $('#lightbox-close').focus();
+  }
+
+  function closeLightbox() {
+    if (typeof lightbox.close === 'function' && lightbox.open) {
+      lightbox.close();
+    } else {
+      lightbox.removeAttribute('open');
+    }
+    if (lastFocused) { lastFocused.focus(); }
+  }
+
+  galleryButtons.forEach(function (btn, i) {
+    btn.addEventListener('click', function () { openLightbox(i); });
+  });
+  $('#lightbox-close').addEventListener('click', closeLightbox);
+  $('#lightbox-prev').addEventListener('click', function () { showSlide(currentIndex - 1); });
+  $('#lightbox-next').addEventListener('click', function () { showSlide(currentIndex + 1); });
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  lightbox.addEventListener('cancel', function () {
+    if (lastFocused) { lastFocused.focus(); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!lightbox.open) return;
+    if (e.key === 'ArrowLeft') { showSlide(currentIndex - 1); }
+    if (e.key === 'ArrowRight') { showSlide(currentIndex + 1); }
+  });
+
+  /* ---------- FAQ: открыт только один вопрос ---------- */
+  var faqItems = $$('.faq-item');
+  faqItems.forEach(function (item) {
+    $('summary', item).addEventListener('click', function () {
+      // Клик ещё не применился: если вопрос закрыт, он сейчас откроется —
+      // закрываем остальные сразу, без ожидания события toggle.
+      if (!item.open) {
+        faqItems.forEach(function (other) {
+          if (other !== item && other.open) { other.open = false; }
+        });
       }
     });
   });
 
-  /* ═══════ VALIDATION ═══════ */
-  function clearErrors() {
-    $$('.builder__error').forEach(function (el) { el.textContent = ''; });
-    $$('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
-  }
-
-  function setError(id, msg) {
-    var el = $('#' + id);
-    if (el) el.textContent = msg;
-  }
-
-  function validate() {
-    clearErrors();
-    var valid = true;
-
-    var age = getRadioValue('age');
-    if (!age) {
-      setError('err-age', 'Выберите возрастную группу');
-      valid = false;
-    }
-
-    var people = parseInt(peopleInput.value, 10);
-    if (isNaN(people) || people < 1 || people > 20) {
-      setError('err-people', 'Укажите от 1 до 20 человек');
-      peopleInput.classList.add('is-invalid');
-      valid = false;
-    }
-
-    var format = getRadioValue('format');
-    if (!format) {
-      setError('err-format', 'Выберите формат занятия');
-      valid = false;
-    }
-
-    var date = dateInput.value;
-    if (!date) {
-      setError('err-date', 'Укажите желаемую дату');
-      dateInput.classList.add('is-invalid');
-      valid = false;
-    } else {
-      var selected = new Date(date + 'T00:00:00');
-      var now = new Date();
-      now.setHours(0, 0, 0, 0);
-      if (selected < now) {
-        setError('err-date', 'Дата не может быть в прошлом');
-        dateInput.classList.add('is-invalid');
-        valid = false;
-      }
-    }
-
-    return valid;
-  }
-
-  /* ═══════ WHATSAPP ═══════ */
-  function buildWhatsAppUrl() {
-    var age = getRadioValue('age');
-    var people = pluralPeople(peopleInput.value);
-    var format = getRadioValue('format');
-    var date = formatDateRu(dateInput.value);
-    var comment = commentArea.value.trim();
-
-    var lines = [
-      'Здравствуйте! Хочу записаться в мастерскую «Красный Круг».',
-      '',
-      '👥 Кто: ' + age,
-      '🔢 Количество: ' + people,
-      '🏺 Формат: ' + format,
-      '📅 Желаемая дата: ' + date
-    ];
-
-    if (comment) {
-      lines.push('💬 Комментарий: ' + comment);
-    }
-
-    lines.push('');
-    lines.push('Подтвердите, пожалуйста, доступность. Спасибо!');
-
-    var text = lines.join('\n');
-    return 'https://wa.me/79039875438?text=' + encodeURIComponent(text);
-  }
-
-  var submitBtn = $('#submit-btn');
-  var submitLabel = $('#submit-label');
-  var waHandoff = $('#wa-handoff');
-  var waFallback = $('#wa-fallback');
-  var sentTimer = null;
-
-  function resetSubmitState() {
-    if (sentTimer) { clearTimeout(sentTimer); sentTimer = null; }
-    submitBtn.classList.remove('is-sent');
-    submitLabel.textContent = 'Отправить в WhatsApp';
-    waHandoff.hidden = true;
-  }
-
-  form.addEventListener('input', resetSubmitState);
-  form.addEventListener('change', resetSubmitState);
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    if (!validate()) {
-      resetSubmitState();
-      var firstErr = $('.builder__error:not(:empty)');
-      if (firstErr) {
-        var field = firstErr.closest('.builder__field');
-        if (field) {
-          field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
-      return;
-    }
-
-    var url = buildWhatsAppUrl();
-    waFallback.href = url;
-    waHandoff.hidden = false;
-    submitBtn.classList.add('is-sent');
-    submitLabel.textContent = 'Заявка готова — открыть ещё раз';
-    window.open(url, '_blank', 'noopener,noreferrer');
-
-    if (sentTimer) clearTimeout(sentTimer);
-    sentTimer = setTimeout(function () {
-      submitBtn.classList.remove('is-sent');
-      submitLabel.textContent = 'Отправить в WhatsApp';
-      sentTimer = null;
-    }, 6000);
-  });
-
-  /* ═══════ GALLERY CONTROLS ═══════ */
-  var galleryTrack = $('#gallery-track');
-  var galPrev = $('#gal-prev');
-  var galNext = $('#gal-next');
-  var galDots = $('#gal-dots');
-
-  if (galleryTrack && galPrev && galNext && galDots) {
-    var cards = $$('.gallery__card', galleryTrack);
-    var cardCount = cards.length;
-
-    for (var d = 0; d < cardCount; d++) {
-      var dot = document.createElement('span');
-      dot.className = 'gallery__dot' + (d === 0 ? ' is-active' : '');
-      galDots.appendChild(dot);
-    }
-    var dots = $$('.gallery__dot', galDots);
-
-    function getCardWidth() {
-      if (!cards[0]) return 300;
-      return cards[0].offsetWidth + 24;
-    }
-
-    function getCurrentIndex() {
-      var scrollLeft = galleryTrack.scrollLeft;
-      var cardW = getCardWidth();
-      return Math.round(scrollLeft / cardW);
-    }
-
-    function updateDots() {
-      var idx = getCurrentIndex();
-      dots.forEach(function (dot, i) {
-        dot.classList.toggle('is-active', i === idx);
-      });
-    }
-
-    galPrev.addEventListener('click', function () {
-      galleryTrack.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
-    });
-    galNext.addEventListener('click', function () {
-      galleryTrack.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
-    });
-
-    galleryTrack.addEventListener('scroll', updateDots, { passive: true });
-    updateDots();
-  }
-
-  /* ═══════ SMOOTH ANCHORS ═══════ */
-  $$('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      var target = $(targetId);
-      if (!target) return;
-      e.preventDefault();
-      var navHeight = nav.offsetHeight;
-      var top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-      history.pushState(null, '', targetId);
-    });
-  });
-
+  /* ---------- Год в футере ---------- */
+  $('#year').textContent = String(new Date().getFullYear());
 })();
