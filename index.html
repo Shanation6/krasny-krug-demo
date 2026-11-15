@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Красный Круг — гончарная мастерская · Красноярск</title>
+  <meta name="description" content="Гончарные занятия и лепка для детей и взрослых. Мастерская «Красный Круг», Красноярск, Взлётная 30. Соберите своё посещение и напишите нам в WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23B83A2A'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23F5EDE4' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23F5EDE4'/%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- ═══════ NAV ═══════ -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo" aria-label="Красный Круг — на главную">
+        <svg class="nav__mark" viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="var(--brick)"/>
+          <circle cx="20" cy="20" r="11" fill="none" stroke="var(--paper)" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="4" fill="var(--paper)"/>
+        </svg>
+        <span class="nav__wordmark">Красный&nbsp;Круг</span>
+      </a>
+      <button class="nav__burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="nav-links" aria-label="Основная навигация">
+        <a href="#formats" class="nav__link">Форматы</a>
+        <a href="#constructor" class="nav__link">Записаться</a>
+        <a href="#gallery" class="nav__link">Галерея</a>
+        <a href="#faq" class="nav__link">Вопросы</a>
+        <a href="#route" class="nav__link">Маршрут</a>
+        <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer" class="nav__cta">WhatsApp</a>
+      </nav>
+    </div>
+    <div class="nav__progress" id="scroll-progress" aria-hidden="true"></div>
+  </header>
+
+  <main>
+
+    <!-- ═══════ HERO ═══════ -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <canvas class="hero__canvas" id="wheel-canvas" aria-hidden="true"></canvas>
+      <div class="hero__grain" aria-hidden="true"></div>
+      <div class="hero__mesh" aria-hidden="true"></div>
+
+      <div class="hero__layout">
+        <div class="hero__content">
+          <p class="hero__eyebrow reveal" data-delay="0">
+            <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+            Гончарная мастерская · Красноярск
+          </p>
+          <h1 class="hero__title reveal" data-delay="1" id="hero-title">
+            <span class="hero__line">Из комка глины&nbsp;—</span>
+            <span class="hero__line hero__line--accent"><em>в вещь с характером</em></span>
+          </h1>
+          <p class="hero__sub reveal" data-delay="2">Лепка и гончарный круг для детей и взрослых.<br>Приходите с любопытством — уйдёте с историей.</p>
+          <div class="hero__actions reveal" data-delay="3">
+            <a href="#constructor" class="btn btn--primary btn--glow">
+              Собрать посещение
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#formats" class="btn btn--ghost">Чем отличаются форматы?</a>
+          </div>
+        </div>
+
+        <div class="hero__aside reveal" data-delay="2" aria-hidden="true">
+          <div class="hero__stamp">
+            <svg viewBox="0 0 160 160" class="hero__stamp-svg">
+              <defs>
+                <path id="stamp-circle" d="M80,80 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/>
+              </defs>
+              <circle cx="80" cy="80" r="76" fill="none" stroke="var(--brick)" stroke-width="1" opacity="0.3"/>
+              <circle cx="80" cy="80" r="68" fill="none" stroke="var(--brick)" stroke-width="0.5" opacity="0.2"/>
+              <text font-size="9.5" fill="var(--brick)" font-family="var(--font-sans)" font-weight="600" letter-spacing="3.5" opacity="0.6">
+                <textPath href="#stamp-circle">КРАСНЫЙ КРУГ · КРАСНОЯРСК · ВЗЛЁТНАЯ 30 · </textPath>
+              </text>
+              <circle cx="80" cy="80" r="28" fill="var(--brick)" opacity="0.08"/>
+              <circle cx="80" cy="80" r="18" fill="none" stroke="var(--brick)" stroke-width="1.5" opacity="0.25"/>
+              <circle cx="80" cy="80" r="6" fill="var(--brick)" opacity="0.2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__scroll-hint reveal" data-delay="4" aria-hidden="true">
+        <div class="hero__scroll-line"></div>
+        <span>Листайте</span>
+      </div>
+    </section>
+
+    <!-- ═══════ MARQUEE ═══════ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">Лепка</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Гончарный круг</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Для детей и взрослых</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Красноярск</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Взлётная, 30</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Лепка</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Гончарный круг</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Для детей и взрослых</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Красноярск</span>
+        <span class="marquee__dot">●</span>
+        <span class="marquee__item">Взлётная, 30</span>
+        <span class="marquee__dot">●</span>
+      </div>
+    </div>
+
+    <!-- ═══════ FORMATS ═══════ -->
+    <section class="formats section" id="formats" aria-labelledby="formats-title">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number" aria-hidden="true">01</span>
+          <h2 class="section__title" id="formats-title">Два пути к&nbsp;глине</h2>
+          <p class="section__lead">Оба формата подходят новичкам. Разница — в ощущениях и результате.</p>
+        </div>
+
+        <div class="formats__split">
+          <!-- Лепка -->
+          <article class="format-panel format-panel--sculpt reveal" aria-labelledby="fmt-sculpt">
+            <div class="format-panel__visual" aria-hidden="true">
+              <svg viewBox="0 0 400 320" class="format-panel__art">
+                <defs>
+                  <radialGradient id="clay-glow" cx="50%" cy="60%" r="50%">
+                    <stop offset="0%" stop-color="var(--terracotta)" stop-opacity="0.2"/>
+                    <stop offset="100%" stop-color="var(--terracotta)" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="400" height="320" fill="url(#clay-glow)"/>
+                <ellipse cx="200" cy="280" rx="130" ry="18" fill="var(--clay)" opacity="0.12"/>
+                <!-- sculptural vessel -->
+                <path d="M130 270 Q115 200 135 140 Q155 90 200 80 Q245 90 265 140 Q285 200 270 270 Z" fill="var(--clay)" opacity="0.5"/>
+                <path d="M145 260 Q135 200 150 150 Q168 105 200 97 Q232 105 250 150 Q265 200 255 260 Z" fill="var(--terracotta)" opacity="0.4"/>
+                <ellipse cx="200" cy="95" rx="38" ry="11" fill="var(--clay-dark)" opacity="0.25"/>
+                <ellipse cx="200" cy="95" rx="28" ry="7" fill="var(--paper)" opacity="0.2"/>
+                <!-- texture lines -->
+                <path d="M160 150 Q180 143 200 147 Q220 143 240 150" fill="none" stroke="var(--ink)" stroke-width="0.7" opacity="0.12"/>
+                <path d="M155 180 Q178 172 200 176 Q222 172 245 180" fill="none" stroke="var(--ink)" stroke-width="0.7" opacity="0.1"/>
+                <path d="M152 210 Q177 202 200 206 Q223 202 248 210" fill="none" stroke="var(--ink)" stroke-width="0.7" opacity="0.08"/>
+                <!-- hands -->
+                <path d="M75 200 Q90 185 110 192 Q118 200 115 215" fill="none" stroke="var(--brick)" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
+                <path d="M325 200 Q310 185 290 192 Q282 200 285 215" fill="none" stroke="var(--brick)" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
+                <!-- fingerprint dots -->
+                <circle cx="175" cy="165" r="2" fill="var(--brick)" opacity="0.08"/>
+                <circle cx="210" cy="190" r="1.5" fill="var(--brick)" opacity="0.06"/>
+                <circle cx="190" cy="220" r="2.5" fill="var(--brick)" opacity="0.07"/>
+              </svg>
+            </div>
+            <div class="format-panel__body">
+              <div class="format-panel__badge">
+                <span class="format-panel__tag">Руками</span>
+                <span class="format-panel__age">от 4 лет</span>
+              </div>
+              <h3 class="format-panel__name" id="fmt-sculpt">Лепка</h3>
+              <p class="format-panel__desc">Вы работаете с глиной напрямую — мнёте, вытягиваете, соединяете. Чашка нестандартной формы, фигурка, тарелка с отпечатком листа. Медитативно и свободно.</p>
+              <ul class="format-panel__list">
+                <li><span class="format-panel__bullet" aria-hidden="true"></span>Не требует координации с механизмом</li>
+                <li><span class="format-panel__bullet" aria-hidden="true"></span>Форма полностью в ваших руках</li>
+                <li><span class="format-panel__bullet" aria-hidden="true"></span>Можно работать компанией за одним столом</li>
+              </ul>
+              <a href="#constructor" class="format-panel__cta" data-format="Лепка">Выбрать лепку →</a>
+            </div>
+          </article>
+
+          <!-- Divider -->
+          <div class="formats__divider reveal" aria-hidden="true">
+            <div class="formats__divider-line"></div>
+            <span class="formats__divider-or">или</span>
+            <div class="formats__divider-line"></div>
+          </div>
+
+          <!-- Гончарный круг -->
+          <article class="format-panel format-panel--wheel reveal" aria-labelledby="fmt-wheel">
+            <div class="format-panel__visual" aria-hidden="true">
+              <svg viewBox="0 0 400 320" class="format-panel__art">
+                <defs>
+                  <radialGradient id="wheel-glow" cx="50%" cy="65%" r="45%">
+                    <stop offset="0%" stop-color="var(--brick)" stop-opacity="0.12"/>
+                    <stop offset="100%" stop-color="var(--brick)" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="400" height="320" fill="url(#wheel-glow)"/>
+                <!-- wheel base -->
+                <ellipse cx="200" cy="275" rx="140" ry="22" fill="var(--ink)" opacity="0.06"/>
+                <ellipse cx="200" cy="268" rx="120" ry="17" fill="var(--brick)" opacity="0.1"/>
+                <ellipse cx="200" cy="264" rx="100" ry="13" fill="var(--brick)" opacity="0.07"/>
+                <!-- spinning rings -->
+                <ellipse cx="200" cy="264" rx="85" ry="10" fill="none" stroke="var(--brick)" stroke-width="0.7" opacity="0.18" stroke-dasharray="5 8" class="spin-ring"/>
+                <ellipse cx="200" cy="264" rx="65" ry="8" fill="none" stroke="var(--brick)" stroke-width="0.5" opacity="0.14" stroke-dasharray="3 6" class="spin-ring spin-ring--reverse"/>
+                <!-- pot -->
+                <path d="M155 260 Q148 200 158 155 Q170 115 200 108 Q230 115 242 155 Q252 200 245 260 Z" fill="var(--terracotta)" opacity="0.5"/>
+                <path d="M165 255 Q160 205 168 165 Q178 130 200 124 Q222 130 232 165 Q240 205 235 255 Z" fill="var(--clay)" opacity="0.3"/>
+                <ellipse cx="200" cy="108" rx="30" ry="9" fill="var(--clay-dark)" opacity="0.3"/>
+                <ellipse cx="200" cy="108" rx="22" ry="6" fill="var(--paper)" opacity="0.25"/>
+                <!-- motion arcs -->
+                <path d="M60 250 Q52 235 60 220" fill="none" stroke="var(--brick)" stroke-width="1.2" opacity="0.15" stroke-linecap="round"/>
+                <path d="M340 250 Q348 235 340 220" fill="none" stroke="var(--brick)" stroke-width="1.2" opacity="0.15" stroke-linecap="round"/>
+                <!-- water drops -->
+                <circle cx="145" cy="240" r="2" fill="var(--info)" opacity="0.12"/>
+                <circle cx="260" cy="235" r="1.5" fill="var(--info)" opacity="0.1"/>
+              </svg>
+            </div>
+            <div class="format-panel__body">
+              <div class="format-panel__badge">
+                <span class="format-panel__tag">На круге</span>
+                <span class="format-panel__age">от 8 лет</span>
+              </div>
+              <h3 class="format-panel__name" id="fmt-wheel">Гончарное занятие</h3>
+              <p class="format-panel__desc">Глина вращается, а вы центрируете её и поднимаете стенки. Когда комок превращается в ровную чашку — это ни с чем не сравнить. Мастер рядом на каждом этапе.</p>
+              <ul class="format-panel__list">
+                <li><span class="format-panel__bullet" aria-hidden="true"></span>Индивидуальная работа за кругом</li>
+                <li><span class="format-panel__bullet" aria-hidden="true"></span>Симметричные формы: чашки, вазы, пиалы</li>
+                <li><span class="format-panel__bullet" aria-hidden="true"></span>Особое тактильное впечатление</li>
+              </ul>
+              <a href="#constructor" class="format-panel__cta" data-format="Гончарный круг">Выбрать круг →</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="formats__note reveal">
+          <div class="formats__note-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--brick)" stroke-width="1.2"/><path d="M10 6v5m0 3v.01" stroke="var(--brick)" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <p>Не уверены, что выбрать? Напишите нам — поможем определиться, расскажем подробнее.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ CONSTRUCTOR ═══════ -->
+    <section class="constructor section" id="constructor" aria-labelledby="constructor-title">
+      <div class="constructor__bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number" aria-hidden="true">02</span>
+          <h2 class="section__title" id="constructor-title">Соберите своё посещение</h2>
+          <p class="section__lead">Выберите параметры — мы подготовим сообщение для WhatsApp. Это заявка, не бронирование: дату и время подтвердим в переписке.</p>
+        </div>
+
+        <form class="builder" id="builder-form" novalidate aria-label="Конструктор посещения">
+          <!-- Progress -->
+          <div class="builder__progress reveal" aria-label="Прогресс заполнения">
+            <div class="builder__progress-track">
+              <div class="builder__progress-fill" id="form-progress"></div>
+            </div>
+            <div class="builder__progress-steps">
+              <span class="builder__step" data-step="age">Кто</span>
+              <span class="builder__step" data-step="people">Сколько</span>
+              <span class="builder__step" data-step="format">Формат</span>
+              <span class="builder__step" data-step="date">Дата</span>
+            </div>
+          </div>
+
+          <div class="builder__layout">
+            <div class="builder__fields">
+              <!-- Возраст -->
+              <fieldset class="builder__field reveal">
+                <legend class="builder__label">
+                  <span class="builder__label-num" aria-hidden="true">1</span>
+                  Кто придёт?
+                </legend>
+                <div class="builder__chips" role="radiogroup" aria-label="Возрастная группа">
+                  <label class="chip">
+                    <input type="radio" name="age" value="Взрослые" required>
+                    <span class="chip__face">Взрослые</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="age" value="Дети (4–7 лет)">
+                    <span class="chip__face">Дети 4–7</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="age" value="Дети (8–14 лет)">
+                    <span class="chip__face">Дети 8–14</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="age" value="Смешанная группа (взрослые + дети)">
+                    <span class="chip__face">Взрослые + дети</span>
+                  </label>
+                </div>
+                <p class="builder__error" id="err-age" role="alert" aria-live="polite"></p>
+              </fieldset>
+
+              <!-- Количество -->
+              <div class="builder__field reveal">
+                <label class="builder__label" for="people-count">
+                  <span class="builder__label-num" aria-hidden="true">2</span>
+                  Сколько человек?
+                </label>
+                <div class="stepper">
+                  <button type="button" class="stepper__btn" id="people-minus" aria-label="Уменьшить количество">−</button>
+                  <input type="number" class="stepper__value" id="people-count" name="people" min="1" max="20" value="2" aria-label="Количество человек" required>
+                  <button type="button" class="stepper__btn" id="people-plus" aria-label="Увеличить количество">+</button>
+                </div>
+                <p class="builder__hint">От 1 до 20 человек</p>
+                <p class="builder__error" id="err-people" role="alert" aria-live="polite"></p>
+              </div>
+
+              <!-- Формат -->
+              <fieldset class="builder__field reveal">
+                <legend class="builder__label">
+                  <span class="builder__label-num" aria-hidden="true">3</span>
+                  Что хотите попробовать?
+                </legend>
+                <div class="builder__chips" role="radiogroup" aria-label="Формат занятия">
+                  <label class="chip chip--wide">
+                    <input type="radio" name="format" value="Лепка" required>
+                    <span class="chip__face">
+                      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 16Q5 10 7 7Q9 4 10 4Q11 4 13 7Q15 10 14 16Z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+                      Лепка
+                    </span>
+                  </label>
+                  <label class="chip chip--wide">
+                    <input type="radio" name="format" value="Гончарный круг">
+                    <span class="chip__face">
+                      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="13" r="6" fill="none" stroke="currentColor" stroke-width="1.2"/><ellipse cx="10" cy="13" rx="4" ry="1.5" fill="none" stroke="currentColor" stroke-width="0.8"/><path d="M8 12Q8 8 10 6Q12 8 12 12" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+                      Гончарный круг
+                    </span>
+                  </label>
+                  <label class="chip chip--wide">
+                    <input type="radio" name="format" value="Пока не решил(а) — нужна консультация">
+                    <span class="chip__face">
+                      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 8Q8 6 10 6Q12 6 12 8Q12 10 10 10.5V12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="10" cy="14.5" r="0.8" fill="currentColor"/></svg>
+                      Посоветуйте
+                    </span>
+                  </label>
+                </div>
+                <p class="builder__error" id="err-format" role="alert" aria-live="polite"></p>
+              </fieldset>
+
+              <!-- Дата -->
+              <div class="builder__field reveal">
+                <label class="builder__label" for="visit-date">
+                  <span class="builder__label-num" aria-hidden="true">4</span>
+                  Желаемая дата
+                </label>
+                <input type="date" class="builder__input" id="visit-date" name="date" required aria-describedby="date-hint">
+                <p class="builder__hint" id="date-hint">Мы подтвердим доступность в переписке</p>
+                <p class="builder__error" id="err-date" role="alert" aria-live="polite"></p>
+              </div>
+
+              <!-- Комментарий -->
+              <div class="builder__field builder__field--full reveal">
+                <label class="builder__label" for="visit-comment">
+                  <span class="builder__label-num builder__label-num--opt" aria-hidden="true">+</span>
+                  Комментарий <span class="builder__optional">(необязательно)</span>
+                </label>
+                <textarea class="builder__textarea" id="visit-comment" name="comment" rows="3" maxlength="500" placeholder="Повод, пожелания, вопросы — всё, что хотите рассказать заранее"></textarea>
+                <p class="builder__charcount"><span id="char-current">0</span>/500</p>
+              </div>
+            </div>
+
+            <!-- Sticky Summary -->
+            <aside class="builder__sidebar reveal" aria-label="Резюме заявки">
+              <div class="builder__summary" id="summary" aria-live="polite">
+                <div class="builder__summary-card">
+                  <div class="builder__summary-header">
+                    <svg width="24" height="24" viewBox="0 0 40 40" aria-hidden="true">
+                      <circle cx="20" cy="20" r="18" fill="var(--brick)" opacity="0.12"/>
+                      <circle cx="20" cy="20" r="11" fill="none" stroke="var(--brick)" stroke-width="1.2"/>
+                      <circle cx="20" cy="20" r="4" fill="var(--brick)"/>
+                    </svg>
+                    <h3 class="builder__summary-title">Ваша заявка</h3>
+                  </div>
+                  <dl class="builder__summary-list" id="summary-list">
+                    <div class="builder__summary-row"><dt>Кто</dt><dd id="sum-age">—</dd></div>
+                    <div class="builder__summary-row"><dt>Человек</dt><dd id="sum-people">2 человека</dd></div>
+                    <div class="builder__summary-row"><dt>Формат</dt><dd id="sum-format">—</dd></div>
+                    <div class="builder__summary-row"><dt>Дата</dt><dd id="sum-date">—</dd></div>
+                    <div class="builder__summary-row" id="sum-comment-row" hidden><dt>Комментарий</dt><dd id="sum-comment">—</dd></div>
+                  </dl>
+                  <div class="builder__summary-status" id="summary-status">
+                    <span class="builder__summary-status-dot"></span>
+                    Заполните поля слева
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--large btn--glow builder__submit" id="submit-btn">
+                  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.212l-.29-.175-3.07.912.912-3.07-.175-.29A8 8 0 1112 20z" fill="currentColor"/></svg>
+                  <span id="submit-label">Отправить в WhatsApp</span>
+                </button>
+                <div class="builder__handoff" id="wa-handoff" hidden role="status" aria-live="polite">
+                  <p class="builder__handoff-text">Текст заявки готов. Если WhatsApp не открылся автоматически — нажмите ссылку ниже.</p>
+                  <a class="builder__handoff-link" id="wa-fallback" href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer">Открыть WhatsApp вручную →</a>
+                </div>
+                <p class="builder__disclaimer">Вы перейдёте в WhatsApp с готовым текстом. Сайт не сохраняет данные.</p>
+              </div>
+            </aside>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ═══════ GALLERY ═══════ -->
+    <section class="gallery section" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number" aria-hidden="true">03</span>
+          <h2 class="section__title" id="gallery-title">Атмосфера мастерской</h2>
+          <p class="section__lead">Глина, свет, сосредоточенные руки. Вот как выглядит процесс.</p>
+        </div>
+      </div>
+
+      <div class="gallery__strip reveal">
+        <div class="gallery__track" id="gallery-track">
+          <figure class="gallery__card gallery__card--tall">
+            <div class="gallery__visual" style="--bg: var(--clay-warm);">
+              <svg viewBox="0 0 300 440" aria-hidden="true">
+                <rect width="300" height="440" fill="var(--clay-warm)"/>
+                <circle cx="150" cy="260" r="90" fill="var(--brick)" opacity="0.08"/>
+                <circle cx="150" cy="260" r="60" fill="var(--brick)" opacity="0.06"/>
+                <path d="M115 255Q108 195 120 160Q133 130 150 125Q167 130 180 160Q192 195 185 255Z" fill="var(--terracotta)" opacity="0.45"/>
+                <ellipse cx="150" cy="125" rx="24" ry="7" fill="var(--clay-dark)" opacity="0.25"/>
+                <ellipse cx="150" cy="260" rx="70" ry="10" fill="none" stroke="var(--brick)" stroke-width="0.6" opacity="0.15" stroke-dasharray="4 6"/>
+                <text x="150" y="390" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">за кругом</text>
+              </svg>
+            </div>
+            <figcaption class="gallery__caption">Центрирование — первый шаг</figcaption>
+          </figure>
+
+          <figure class="gallery__card">
+            <div class="gallery__visual" style="--bg: var(--paper-deep);">
+              <svg viewBox="0 0 300 280" aria-hidden="true">
+                <rect width="300" height="280" fill="var(--paper-deep)"/>
+                <ellipse cx="150" cy="160" rx="80" ry="45" fill="var(--clay)" opacity="0.3"/>
+                <path d="M95 150Q108 115 130 108Q150 102 170 108Q192 115 205 150" fill="none" stroke="var(--terracotta)" stroke-width="2" opacity="0.35"/>
+                <path d="M70 175Q85 158 105 165" fill="none" stroke="var(--brick)" stroke-width="1.8" opacity="0.2" stroke-linecap="round"/>
+                <path d="M230 175Q215 158 195 165" fill="none" stroke="var(--brick)" stroke-width="1.8" opacity="0.2" stroke-linecap="round"/>
+                <text x="150" y="245" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">лепка</text>
+              </svg>
+            </div>
+            <figcaption class="gallery__caption">Тёплая глина в ладонях</figcaption>
+          </figure>
+
+          <figure class="gallery__card">
+            <div class="gallery__visual" style="--bg: var(--sand);">
+              <svg viewBox="0 0 300 280" aria-hidden="true">
+                <rect width="300" height="280" fill="var(--sand)"/>
+                <line x1="80" y1="60" x2="80" y2="200" stroke="var(--ink)" stroke-width="2.5" opacity="0.1" stroke-linecap="round"/>
+                <line x1="120" y1="50" x2="120" y2="205" stroke="var(--ink)" stroke-width="1.8" opacity="0.08" stroke-linecap="round"/>
+                <line x1="155" y1="65" x2="155" y2="198" stroke="var(--ink)" stroke-width="3" opacity="0.09" stroke-linecap="round"/>
+                <line x1="190" y1="55" x2="195" y2="202" stroke="var(--ink)" stroke-width="2" opacity="0.1" stroke-linecap="round"/>
+                <line x1="225" y1="70" x2="222" y2="195" stroke="var(--ink)" stroke-width="1.5" opacity="0.07" stroke-linecap="round"/>
+                <ellipse cx="150" cy="215" rx="100" ry="10" fill="var(--clay)" opacity="0.08"/>
+                <text x="150" y="255" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">инструменты</text>
+              </svg>
+            </div>
+            <figcaption class="gallery__caption">Простые инструменты, точные движения</figcaption>
+          </figure>
+
+          <figure class="gallery__card gallery__card--wide">
+            <div class="gallery__visual" style="--bg: var(--clay-warm);">
+              <svg viewBox="0 0 620 280" aria-hidden="true">
+                <rect width="620" height="280" fill="var(--clay-warm)"/>
+                <rect x="40" y="120" width="540" height="90" rx="3" fill="var(--wood)" opacity="0.1"/>
+                <circle cx="130" cy="130" r="35" fill="var(--brick)" opacity="0.07"/>
+                <circle cx="310" cy="125" r="40" fill="var(--brick)" opacity="0.06"/>
+                <circle cx="490" cy="132" r="32" fill="var(--brick)" opacity="0.08"/>
+                <rect x="60" y="60" width="130" height="4" rx="2" fill="var(--ink)" opacity="0.04"/>
+                <rect x="250" y="55" width="150" height="4" rx="2" fill="var(--ink)" opacity="0.035"/>
+                <rect x="450" y="62" width="110" height="4" rx="2" fill="var(--ink)" opacity="0.04"/>
+                <text x="310" y="250" text-anchor="middle" fill="var(--ink)" opacity="0.15" font-family="var(--font-serif)" font-size="15" font-style="italic">пространство мастерской</text>
+              </svg>
+            </div>
+            <figcaption class="gallery__caption">Каждый за своим кругом, все вместе</figcaption>
+          </figure>
+
+          <figure class="gallery__card">
+            <div class="gallery__visual" style="--bg: var(--paper-deep);">
+              <svg viewBox="0 0 300 280" aria-hidden="true">
+                <rect width="300" height="280" fill="var(--paper-deep)"/>
+                <circle cx="105" cy="145" r="30" fill="var(--terracotta)" opacity="0.25"/>
+                <circle cx="170" cy="138" r="22" fill="var(--clay)" opacity="0.3"/>
+                <circle cx="215" cy="155" r="16" fill="var(--brick)" opacity="0.15"/>
+                <path d="M82 175Q95 162 108 168Q121 162 134 175" fill="none" stroke="var(--ink)" stroke-width="1" opacity="0.1"/>
+                <text x="150" y="245" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-serif)" font-size="15" font-style="italic">детская лепка</text>
+              </svg>
+            </div>
+            <figcaption class="gallery__caption">Маленькие мастера, большие идеи</figcaption>
+          </figure>
+
+          <figure class="gallery__card">
+            <div class="gallery__visual" style="--bg: var(--brick-muted);">
+              <svg viewBox="0 0 300 280" aria-hidden="true">
+                <rect width="300" height="280" fill="var(--brick-muted)"/>
+                <circle cx="150" cy="130" r="70" fill="none" stroke="var(--paper)" stroke-width="1" opacity="0.15"/>
+                <circle cx="150" cy="130" r="48" fill="none" stroke="var(--paper)" stroke-width="0.7" opacity="0.12"/>
+                <circle cx="150" cy="130" r="26" fill="var(--paper)" opacity="0.06"/>
+                <circle cx="150" cy="130" r="8" fill="var(--paper)" opacity="0.1"/>
+                <text x="150" y="245" text-anchor="middle" fill="var(--paper)" opacity="0.25" font-family="var(--font-serif)" font-size="15" font-style="italic">текстура</text>
+              </svg>
+            </div>
+            <figcaption class="gallery__caption">Фактура, которую хочется трогать</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="gallery__controls reveal" aria-label="Управление галереей">
+        <button class="gallery__arrow gallery__arrow--prev" id="gal-prev" aria-label="Предыдущие">
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M13 4L7 10l6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="gallery__dots" id="gal-dots" aria-hidden="true"></div>
+        <button class="gallery__arrow gallery__arrow--next" id="gal-next" aria-label="Следующие">
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="container">
+        <p class="gallery__note reveal">Иллюстрации передают атмосферу процесса. Фотографии работ мастерской смотрите во <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener noreferrer">ВКонтакте</a>.</p>
+      </div>
+    </section>
+
+    <!-- ═══════ FAQ ═══════ -->
+    <section class="faq section" id="faq" aria-labelledby="faq-title">
+      <div class="container container--narrow">
+        <div class="section__header reveal">
+          <span class="section__number" aria-hidden="true">04</span>
+          <h2 class="section__title" id="faq-title">Вопросы начинающего</h2>
+          <p class="section__lead">То, что обычно спрашивают перед первым визитом.</p>
+        </div>
+
+        <div class="faq__list" role="list">
+          <details class="faq__item reveal">
+            <summary class="faq__question">
+              <span>Я никогда не работал с глиной. Получится?</span>
+              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
+            </summary>
+            <div class="faq__answer">
+              <p>Да. Занятия рассчитаны на людей без опыта. Мастер показывает каждый шаг, помогает руками, если нужно. Первый раз — это всегда про удовольствие от процесса, а не про идеальный результат.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary class="faq__question">
+              <span>Что надеть?</span>
+              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
+            </summary>
+            <div class="faq__answer">
+              <p>Что-то, что не жалко испачкать. Глина отмывается, но лучше прийти в удобной одежде. Фартуки обычно есть в мастерской — уточните при записи.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary class="faq__question">
+              <span>С какого возраста можно детям?</span>
+              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
+            </summary>
+            <div class="faq__answer">
+              <p>Лепка — примерно с 4 лет (при участии взрослого рядом). Гончарный круг — с 8 лет, когда ребёнок может дотянуться до педали и удерживать внимание. Точные условия уточняйте в WhatsApp.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary class="faq__question">
+              <span>Сколько длится занятие?</span>
+              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
+            </summary>
+            <div class="faq__answer">
+              <p>Зависит от формата и группы. Подробности расскажем при записи — напишите нам, и мы подберём удобный вариант.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary class="faq__question">
+              <span>Можно прийти компанией?</span>
+              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
+            </summary>
+            <div class="faq__answer">
+              <p>Конечно. День рождения, свидание, тимбилдинг, просто вечер с друзьями — глина объединяет. Укажите количество человек в конструкторе выше, и мы обсудим формат.</p>
+            </div>
+          </details>
+
+          <details class="faq__item reveal">
+            <summary class="faq__question">
+              <span>Как записаться?</span>
+              <span class="faq__toggle" aria-hidden="true"><span></span><span></span></span>
+            </summary>
+            <div class="faq__answer">
+              <p>Соберите заявку в <a href="#constructor">конструкторе выше</a> — она откроется как готовое сообщение в WhatsApp. Или напишите напрямую: <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer">wa.me/79039875438</a>. Мы ответим и согласуем дату.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ ROUTE ═══════ -->
+    <section class="route section" id="route" aria-labelledby="route-title">
+      <div class="container">
+        <div class="section__header reveal">
+          <span class="section__number" aria-hidden="true">05</span>
+          <h2 class="section__title" id="route-title">Как нас найти</h2>
+        </div>
+
+        <div class="route__layout">
+          <div class="route__info reveal">
+            <div class="route__address-block">
+              <div class="route__pin-wrap" aria-hidden="true">
+                <svg class="route__pin" width="40" height="40" viewBox="0 0 40 40">
+                  <circle cx="20" cy="17" r="16" fill="var(--brick)" opacity="0.1"/>
+                  <path d="M20 5C14.5 5 10 9.5 10 15c0 8 10 20 10 20s10-12 10-20c0-5.5-4.5-10-10-10zm0 14a4 4 0 110-8 4 4 0 010 8z" fill="var(--brick)"/>
+                </svg>
+              </div>
+              <div>
+                <p class="route__city">Красноярск</p>
+                <p class="route__street">ул. Взлётная, 30</p>
+              </div>
+            </div>
+
+            <div class="route__links">
+              <a href="https://yandex.ru/maps/?text=Красноярск+Взлётная+30" target="_blank" rel="noopener noreferrer" class="route__map-link">
+                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1" y="1" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M1 6h16M6 1v16" stroke="currentColor" stroke-width="0.8" opacity="0.4"/><circle cx="11" cy="10" r="2" fill="currentColor" opacity="0.5"/></svg>
+                Открыть в Яндекс Картах
+                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" class="route__ext"><path d="M5 2h7v7M12 2L5 9" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+              </a>
+              <a href="https://go.2gis.com/krasnoyarsk/search/Взлётная%2030" target="_blank" rel="noopener noreferrer" class="route__map-link">
+                <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1" y="1" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 9h8M9 5v8" stroke="currentColor" stroke-width="1" opacity="0.4"/></svg>
+                Открыть в 2ГИС
+                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" class="route__ext"><path d="M5 2h7v7M12 2L5 9" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+
+            <div class="route__contacts">
+              <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer" class="route__contact route__contact--wa">
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.212l-.29-.175-3.07.912.912-3.07-.175-.29A8 8 0 1112 20z" fill="currentColor"/></svg>
+                WhatsApp
+              </a>
+              <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener noreferrer" class="route__contact route__contact--vk">
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.587-1.496c.596-.19 1.365 1.26 2.179 1.816.616.42 1.084.328 1.084.328l2.175-.03s1.14-.07.599-.964c-.044-.073-.314-.661-1.618-1.869-1.366-1.265-1.183-1.06.462-3.246.999-1.33 1.398-2.143 1.273-2.491-.12-.332-.856-.244-.856-.244l-2.454.015s-.182-.025-.317.056c-.133.079-.218.264-.218.264s-.392 1.044-.914 1.932c-1.103 1.876-1.544 1.976-1.724 1.86-.419-.272-.314-1.092-.314-1.674 0-1.821.276-2.58-.539-2.777-.27-.065-.47-.108-1.16-.115-.886-.01-1.636.003-2.06.21-.283.138-.5.446-.368.464.164.022.535.1.732.367.254.345.245 1.12.245 1.12s.146 2.144-.34 2.41c-.334.183-.792-.19-1.776-1.893-.504-.872-.884-1.836-.884-1.836s-.074-.18-.205-.277c-.159-.117-.381-.154-.381-.154l-2.334.015s-.35.01-.479.163c-.114.135-.009.414-.009.414s1.838 4.3 3.92 6.467c1.907 1.987 4.073 1.856 4.073 1.856h.982z" fill="currentColor"/></svg>
+                ВКонтакте
+              </a>
+            </div>
+          </div>
+
+          <div class="route__map-embed reveal" aria-label="Карта расположения мастерской">
+            <div class="route__map-placeholder">
+              <svg viewBox="0 0 500 380" aria-hidden="true">
+                <rect width="500" height="380" fill="var(--paper-deep)"/>
+                <line x1="0" y1="90" x2="500" y2="90" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+                <line x1="0" y1="180" x2="500" y2="180" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+                <line x1="0" y1="270" x2="500" y2="270" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+                <line x1="100" y1="0" x2="100" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+                <line x1="200" y1="0" x2="200" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+                <line x1="300" y1="0" x2="300" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+                <line x1="400" y1="0" x2="400" y2="380" stroke="var(--ink)" stroke-width="0.5" opacity="0.05"/>
+                <path d="M0 190 Q150 185 250 190 Q350 195 500 187" stroke="var(--ink)" stroke-width="3.5" opacity="0.07" fill="none"/>
+                <path d="M250 0 Q245 110 250 190 Q255 270 248 380" stroke="var(--ink)" stroke-width="3" opacity="0.06" fill="none"/>
+                <path d="M80 0 Q120 130 180 190" stroke="var(--ink)" stroke-width="1.5" opacity="0.04" fill="none"/>
+                <path d="M420 50 Q380 140 320 190" stroke="var(--ink)" stroke-width="1.5" opacity="0.04" fill="none"/>
+                <!-- pulse ring -->
+                <circle cx="250" cy="180" r="30" fill="var(--brick)" opacity="0.06" class="map-pulse"/>
+                <circle cx="250" cy="180" r="18" fill="var(--brick)" opacity="0.12"/>
+                <path d="M250 162c-6 0-11 5-11 11 0 8 11 20 11 20s11-12 11-20c0-6-5-11-11-11zm0 15a4 4 0 110-8 4 4 0 010 8z" fill="var(--brick)"/>
+                <text x="250" y="225" text-anchor="middle" fill="var(--ink)" opacity="0.35" font-family="var(--font-sans)" font-size="12" font-weight="600">Взлётная, 30</text>
+                <text x="250" y="340" text-anchor="middle" fill="var(--ink)" opacity="0.18" font-family="var(--font-sans)" font-size="10">Нажмите «Открыть в картах» для навигации</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ CTA BAND ═══════ -->
+    <section class="cta-band" aria-label="Призыв к действию">
+      <div class="cta-band__bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="cta-band__inner reveal">
+          <p class="cta-band__text">Глина ждёт ваших рук</p>
+          <a href="#constructor" class="btn btn--light btn--large">Собрать посещение</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg class="footer__mark" viewBox="0 0 40 40" width="32" height="32" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" fill="var(--brick)"/>
+            <circle cx="20" cy="20" r="11" fill="none" stroke="var(--paper)" stroke-width="1.5"/>
+            <circle cx="20" cy="20" r="4" fill="var(--paper)"/>
+          </svg>
+          <span class="footer__name">Красный Круг</span>
+          <span class="footer__city">Красноярск · Взлётная, 30</span>
+        </div>
+        <div class="footer__links">
+          <a href="https://vk.ru/samredkrug" target="_blank" rel="noopener noreferrer">ВКонтакте</a>
+          <a href="https://wa.me/79039875438" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
+        <p class="footer__concept">Концепт сайта</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
